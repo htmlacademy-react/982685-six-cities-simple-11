@@ -5,9 +5,10 @@ type PlaceCardProps = Omit<PlaceCardInfo, 'id'>;
 function PlaceCard({ mark, imageSrc, imageAlt, priceValue, priceText, ratingStars, name, type }: PlaceCardProps): JSX.Element {
   return (
     <article className="cities__card place-card">
+      {mark &&
       <div className="place-card__mark">
         <span>{mark}</span>
-      </div>
+      </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#dummy">
           <img className="place-card__image" src={imageSrc} alt={imageAlt} width="260" height="200" />
