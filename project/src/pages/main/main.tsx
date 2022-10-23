@@ -1,6 +1,13 @@
 import PlaceCard from '../../components/place-card/place-card';
+import { City, PlaceCardInfo} from '../../types/types';
 
-function Main(): JSX.Element {
+type MainProps = {
+  city: City;
+  rentalOffers: number;
+  places: PlaceCardInfo[];
+};
+
+function Main({ city, rentalOffers, places }: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -36,7 +43,7 @@ function Main(): JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#dummy">
+                <a className="locations__item-link tabs__item tabs__item--active" href="#dummy">
                   <span>Paris</span>
                 </a>
               </li>
@@ -51,7 +58,7 @@ function Main(): JSX.Element {
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href="#dummy">
+                <a className="locations__item-link tabs__item" href="#dummy">
                   <span>Amsterdam</span>
                 </a>
               </li>
@@ -72,7 +79,7 @@ function Main(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{rentalOffers} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -89,11 +96,19 @@ function Main(): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard />
-                <PlaceCard />
-                <PlaceCard />
-                <PlaceCard />
-                <PlaceCard />
+                {places.map((place: PlaceCardInfo) => (
+                  <PlaceCard
+                    key={place.id}
+                    mark={place.mark}
+                    imageSrc={place.imageSrc}
+                    imageAlt={place.imageAlt}
+                    priceValue={place.priceValue}
+                    priceText={place.priceText}
+                    ratingStars={place.ratingStars}
+                    name={place.name}
+                    type={place.type}
+                  />
+                ))}
               </div>
             </section>
             <div className="cities__right-section">
