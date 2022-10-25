@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов (простой)»
 
 * Студент: [Евгений Сомов](https://up.htmlacademy.ru/react/11/user/982685).
-* Наставник: [Артём Мошкин](https://htmlacademy.ru/profile/id2088751).
+* Наставник: [Юрий Лаврухин](https://htmlacademy.ru/profile/id2038891).
 
 ---
 
