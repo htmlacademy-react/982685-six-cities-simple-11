@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { City, PlaceCardInfo } from './types/types';
+import { City, HousingType, PlaceCardInfo } from './types/types';
 
 const Settings: {
   city: City;
@@ -14,58 +14,53 @@ const Settings: {
 const mockPlaceCard: PlaceCardInfo[] = [
   {
     id: 1,
-    mark: 'Premium',
+    isPremium: true,
     imageSrc: 'img/apartment-01.jpg',
     imageAlt: 'Place image',
-    priceValue: 120,
-    priceText: 'night',
-    ratingStars: 4,
+    price: 120,
+    rating: 4,
     name: 'Beautiful & luxurious apartment at great location',
-    type: 'Apartment',
+    type: HousingType.Apartment,
   },
   {
     id: 2,
-    mark: '',
+    isPremium: false,
     imageSrc: 'img/room.jpg',
     imageAlt: 'Place image',
-    priceValue: 80,
-    priceText: 'night',
-    ratingStars: 4,
+    price: 80,
+    rating: 4,
     name: 'Wood and stone place',
-    type: 'Private room',
+    type: HousingType.Room,
   },
   {
     id: 3,
-    mark: '',
+    isPremium: false,
     imageSrc: 'img/apartment-02.jpg',
     imageAlt: 'Place image',
-    priceValue: 132,
-    priceText: 'night',
-    ratingStars: 4,
+    price: 132,
+    rating: 4,
     name: 'Canal View Prinsengracht',
-    type: 'Apartment',
+    type: HousingType.Apartment,
   },
   {
     id: 4,
-    mark: 'Premium',
+    isPremium: true,
     imageSrc: 'img/apartment-03.jpg',
     imageAlt: 'Place image',
-    priceValue: 180,
-    priceText: 'night',
-    ratingStars: 5,
+    price: 180,
+    rating: 5,
     name: 'Nice, cozy, warm big bed apartment',
-    type: 'Apartment',
+    type: HousingType.Apartment,
   },
   {
     id: 5,
-    mark: '',
+    isPremium: false,
     imageSrc: 'img/room.jpg',
     imageAlt: 'Place image',
-    priceValue: 80,
-    priceText: 'night',
-    ratingStars: 3.5,
+    price: 80,
+    rating: 4,
     name: 'Wood and stone place',
-    type: 'Private room',
+    type: HousingType.Room,
   }
 ];
 
