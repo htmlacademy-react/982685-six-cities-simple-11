@@ -2,12 +2,12 @@ import { PlaceCardInfo } from '../../types/types';
 
 type PlaceCardProps = Omit<PlaceCardInfo, 'id'>;
 
-function PlaceCard({ mark, imageSrc, imageAlt, priceValue, priceText, ratingStars, name, type }: PlaceCardProps): JSX.Element {
+function PlaceCard({ isPremium, imageSrc, imageAlt, price, rating, name, type }: PlaceCardProps): JSX.Element {
   return (
     <article className="cities__card place-card">
-      {mark &&
+      {isPremium &&
       <div className="place-card__mark">
-        <span>{mark}</span>
+        <span>Premium</span>
       </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#dummy">
@@ -17,13 +17,13 @@ function PlaceCard({ mark, imageSrc, imageAlt, priceValue, priceText, ratingStar
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{priceValue}</b>
-            <span className="place-card__price-text">&nbsp;&#47;&nbsp;{priceText}</span>
+            <b className="place-card__price-value">&euro;{price}</b>
+            <span className="place-card__price-text">&nbsp;&#47;&nbsp;night</span>
           </div>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.round(20 * ratingStars)}%`}}></span>
+            <span style={{width: `${Math.round(20 * rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
