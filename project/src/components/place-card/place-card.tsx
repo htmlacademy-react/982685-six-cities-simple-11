@@ -23,7 +23,7 @@ function PlaceCard({ mark, imageSrc, imageAlt, priceValue, priceText, ratingStar
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${20 * ratingStars}%`}}></span>
+            <span style={{width: `${Math.round(20 * ratingStars)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
