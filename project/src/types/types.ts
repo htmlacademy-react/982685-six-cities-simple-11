@@ -1,13 +1,19 @@
 export type City = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
 
+export const enum HousingType {
+  Apartment = 'Apartment',
+  Room = 'Private Room',
+  House = 'House',
+  Hotel = 'Hotel',
+}
+
 export type PlaceCardInfo = {
   id: number;
-  mark: string;
+  isPremium: boolean;
   imageSrc: string;
   imageAlt: string;
-  priceValue: number;
-  priceText: string;
-  ratingStars: number;
+  price: number;
+  rating: number;
   name: string;
-  type: string;
+  type: HousingType;
 }
