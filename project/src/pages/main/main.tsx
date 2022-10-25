@@ -81,7 +81,7 @@ function Main({ city, rentalOffers, places }: MainProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{rentalOffers} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
+                <span className="places__sorting-caption">Sort by </span>
                 <span className="places__sorting-type" tabIndex={0}>
                 Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
@@ -96,17 +96,16 @@ function Main({ city, rentalOffers, places }: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {places.map((place: PlaceCardInfo) => (
+                {places.map(({ id, isPremium, imageSrc, imageAlt, price, rating, name, type }: PlaceCardInfo) => (
                   <PlaceCard
-                    key={place.id}
-                    mark={place.mark}
-                    imageSrc={place.imageSrc}
-                    imageAlt={place.imageAlt}
-                    priceValue={place.priceValue}
-                    priceText={place.priceText}
-                    ratingStars={place.ratingStars}
-                    name={place.name}
-                    type={place.type}
+                    key={id}
+                    isPremium={isPremium}
+                    imageSrc={imageSrc}
+                    imageAlt={imageAlt}
+                    price={price}
+                    rating={rating}
+                    name={name}
+                    type={type}
                   />
                 ))}
               </div>
