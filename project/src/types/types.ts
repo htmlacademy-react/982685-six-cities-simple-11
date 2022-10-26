@@ -17,3 +17,9 @@ export type PlaceCardInfo = {
   name: string;
   type: HousingType;
 }
+
+export const enum AppRoute {
+  Root = '/',
+  Login = '/login',
+  Room = '/offer/:id',
+}

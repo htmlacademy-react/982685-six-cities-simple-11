@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { City, PlaceCardInfo } from '../../types/types';
-import { AppRoute } from '../../const';
+import { City, PlaceCardInfo, AppRoute } from '../../types/types';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Property from '../../pages/property/property';
