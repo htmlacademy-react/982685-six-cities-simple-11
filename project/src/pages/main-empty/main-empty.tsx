@@ -1,8 +1,13 @@
+import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 
 function MainEmpty(): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>Six cities simple: Main</title>
+      </Helmet>
+
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

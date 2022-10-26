@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import PlaceCard from '../../components/place-card/place-card';
 import { City, PlaceCardInfo} from '../../types/types';
@@ -11,6 +12,10 @@ type MainProps = {
 function Main({ city, rentalOffers, places }: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>Six cities simple: Main</title>
+      </Helmet>
+
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
