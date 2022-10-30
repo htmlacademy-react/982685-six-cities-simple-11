@@ -1,5 +1,7 @@
 export type City = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
 
+export const RATING_MAX = 5;
+
 export const enum HousingType {
   Apartment = 'Apartment',
   Room = 'Private Room',
@@ -31,7 +33,7 @@ export type User = {
   avatarUrl: string;
 }
 
-export type Comment = {
+export type Review = {
   id: number;
   comment: string;
   date: string;
@@ -39,4 +41,4 @@ export type Comment = {
   user: User;
 };
 
-export type NewComment = Pick<Comment, 'comment' | 'rating'>;
+export type NewReview = Pick<Review, 'comment' | 'rating'>;

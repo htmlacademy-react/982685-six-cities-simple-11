@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, OfferCardInfo } from '../../types/types';
+import { AppRoute, OfferCardInfo, RATING_MAX } from '../../types/types';
 
 type OfferCardProps ={
   offer: OfferCardInfo;
@@ -28,7 +28,7 @@ function OfferCard({ offer }: OfferCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.round(20 * rating)}%`}}></span>
+            <span style={{width: `${Math.round(100 / RATING_MAX * rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
