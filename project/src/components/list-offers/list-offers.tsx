@@ -5,20 +5,11 @@ type ListOffersProps = {
   places: PlaceCardInfo[];
 };
 
-function ListOffers ({ places }: ListOffersProps): JSX.Element {
+function ListOffers({ places }: ListOffersProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
-      {places.map(({ id, isPremium, imageSrc, imageAlt, price, rating, name, type }: PlaceCardInfo) => (
-        <PlaceCard
-          key={id}
-          isPremium={isPremium}
-          imageSrc={imageSrc}
-          imageAlt={imageAlt}
-          price={price}
-          rating={rating}
-          name={name}
-          type={type}
-        />
+      {places.map((offer: PlaceCardInfo) => (
+        <PlaceCard offer={offer} key={offer.id} />
       ))}
     </div>
   );
