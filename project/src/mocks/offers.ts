@@ -1,6 +1,6 @@
-import { HousingType, PlaceCardInfo } from '../types/types';
+import { HousingType, OfferCardInfo } from '../types/types';
 
-export const mockPlaceCard: PlaceCardInfo[] = [
+export const mockOffersCard: OfferCardInfo[] = [
   {
     id: 1,
     isPremium: true,

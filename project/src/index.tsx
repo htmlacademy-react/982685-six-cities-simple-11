@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { City } from './types/types';
-import { mockPlaceCard } from './mocks/offers';
+import { mockOffersCard } from './mocks/offers';
 
 const Settings: {
   city: City;
@@ -21,7 +21,7 @@ root.render(
     <App
       city={Settings.city}
       rentalOffers={Settings.rentalOffers}
-      places={mockPlaceCard}
+      offers={mockOffersCard}
     />
   </React.StrictMode>,
 );

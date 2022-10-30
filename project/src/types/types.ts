@@ -7,7 +7,7 @@ export const enum HousingType {
   Hotel = 'Hotel',
 }
 
-export type PlaceCardInfo = {
+export type OfferCardInfo = {
   id: number;
   isPremium: boolean;
   imageSrc: string;
@@ -21,7 +21,7 @@ export type PlaceCardInfo = {
 export const enum AppRoute {
   Root = '/',
   Login = '/login',
-  Room = '/offer/:id',
+  Offer = '/offer',
 }
 
 export type User = {
