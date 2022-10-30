@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import CommentForm from '../../components/comment-form/comment-form';
+import ReviewsForm from '../../components/reviews-form/reviews-form';
 
 function Property(): JSX.Element {
   return (
@@ -171,7 +171,7 @@ function Property(): JSX.Element {
                     </div>
                   </li>
                 </ul>
-                <CommentForm />
+                <ReviewsForm />
               </section>
             </div>
           </div>
