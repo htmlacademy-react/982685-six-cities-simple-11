@@ -23,3 +23,20 @@ export const enum AppRoute {
   Login = '/login',
   Room = '/offer/:id',
 }
+
+export type User = {
+  id: number;
+  name: string;
+  isPro: boolean;
+  avatarUrl: string;
+}
+
+export type Comment = {
+  id: number;
+  comment: string;
+  date: string;
+  rating: number;
+  user: User;
+};
+
+export type NewComment = Pick<Comment, 'comment' | 'rating'>;
