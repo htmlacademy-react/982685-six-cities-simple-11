@@ -1,27 +1,21 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PlaceCardInfo } from '../../types/types';
+import { AppRoute, OfferCardInfo } from '../../types/types';
 
-type PlaceCardProps ={
-  offer: PlaceCardInfo;
+type OfferCardProps ={
+  offer: OfferCardInfo;
 };
 
-function PlaceCard({ offer }: PlaceCardProps): JSX.Element {
+function OfferCard({ offer }: OfferCardProps): JSX.Element {
   const { id, isPremium, imageSrc, imageAlt, price, rating, name, type } = offer;
-  const [activeCardId, setActiveCardId] = useState(0);
 
   return (
-    <article
-      className="cities__card place-card"
-      onMouseEnter={() => setActiveCardId(id)}
-      onMouseLeave={() => setActiveCardId(0)}
-    >
+    <>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
       </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/${activeCardId}`}>
+        <Link to={`${AppRoute.Offer}/${id}`}>
           <img className="place-card__image" src={imageSrc} alt={imageAlt} width="260" height="200" />
         </Link>
       </div>
@@ -39,12 +33,12 @@ function PlaceCard({ offer }: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${activeCardId}`}>{name}</Link>
+          <Link to={`${AppRoute.Offer}/${id}`}>{name}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
-    </article>
+    </>
   );
 }
 
-export default PlaceCard;
+export default OfferCard;
