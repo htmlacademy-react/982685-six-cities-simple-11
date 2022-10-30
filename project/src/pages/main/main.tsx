@@ -1,15 +1,15 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import PlaceCard from '../../components/place-card/place-card';
-import { City, PlaceCardInfo} from '../../types/types';
+import ListOffers from '../../components/list-offers/list-offers';
+import { City, OfferCardInfo} from '../../types/types';
 
 type MainProps = {
   city: City;
   rentalOffers: number;
-  places: PlaceCardInfo[];
+  offers: OfferCardInfo[];
 };
 
-function Main({ city, rentalOffers, places }: MainProps): JSX.Element {
+function Main({ city, rentalOffers, offers }: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -97,20 +97,7 @@ function Main({ city, rentalOffers, places }: MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {places.map(({ id, isPremium, imageSrc, imageAlt, price, rating, name, type }: PlaceCardInfo) => (
-                  <PlaceCard
-                    key={id}
-                    isPremium={isPremium}
-                    imageSrc={imageSrc}
-                    imageAlt={imageAlt}
-                    price={price}
-                    rating={rating}
-                    name={name}
-                    type={type}
-                  />
-                ))}
-              </div>
+              <ListOffers offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

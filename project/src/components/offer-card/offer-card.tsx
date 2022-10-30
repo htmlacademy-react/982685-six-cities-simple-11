@@ -1,18 +1,23 @@
-import { PlaceCardInfo } from '../../types/types';
+import { Link } from 'react-router-dom';
+import { AppRoute, OfferCardInfo, RATING_MAX } from '../../types/types';
 
-type PlaceCardProps = Omit<PlaceCardInfo, 'id'>;
+type OfferCardProps ={
+  offer: OfferCardInfo;
+};
 
-function PlaceCard({ isPremium, imageSrc, imageAlt, price, rating, name, type }: PlaceCardProps): JSX.Element {
+function OfferCard({ offer }: OfferCardProps): JSX.Element {
+  const { id, isPremium, imageSrc, imageAlt, price, rating, name, type } = offer;
+
   return (
-    <article className="cities__card place-card">
+    <>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
       </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#dummy">
+        <Link to={`${AppRoute.Offer}/${id}`}>
           <img className="place-card__image" src={imageSrc} alt={imageAlt} width="260" height="200" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -23,17 +28,17 @@ function PlaceCard({ isPremium, imageSrc, imageAlt, price, rating, name, type }:
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.round(20 * rating)}%`}}></span>
+            <span style={{width: `${Math.round(100 / RATING_MAX * rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#dummy">{name}</a>
+          <Link to={`${AppRoute.Offer}/${id}`}>{name}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
-    </article>
+    </>
   );
 }
 
-export default PlaceCard;
+export default OfferCard;

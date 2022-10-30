@@ -1,5 +1,7 @@
 export type City = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
 
+export const RATING_MAX = 5;
+
 export const enum HousingType {
   Apartment = 'Apartment',
   Room = 'Private Room',
@@ -7,7 +9,7 @@ export const enum HousingType {
   Hotel = 'Hotel',
 }
 
-export type PlaceCardInfo = {
+export type OfferCardInfo = {
   id: number;
   isPremium: boolean;
   imageSrc: string;
@@ -21,5 +23,22 @@ export type PlaceCardInfo = {
 export const enum AppRoute {
   Root = '/',
   Login = '/login',
-  Room = '/offer/:id',
+  Offer = '/offer',
 }
+
+export type User = {
+  id: number;
+  name: string;
+  isPro: boolean;
+  avatarUrl: string;
+}
+
+export type Review = {
+  id: number;
+  comment: string;
+  date: string;
+  rating: number;
+  user: User;
+};
+
+export type NewReview = Pick<Review, 'comment' | 'rating'>;
