@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { City } from './types/types';
 import { mockOffersCard } from './mocks/offers';
+import { CITY } from './mocks/city';
 
 const Settings: {
   city: City;
   rentalOffers: number;
 } = {
-  city: 'Paris',
+  city: CITY,
   rentalOffers: 312,
 };
 

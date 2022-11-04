@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, OfferCardInfo, RATING_MAX } from '../../types/types';
+import { AppRoute, OfferCardInfo } from '../../types/types';
+import { RATING_MAX } from '../../const';
 
 type OfferCardProps ={
   offer: OfferCardInfo;
