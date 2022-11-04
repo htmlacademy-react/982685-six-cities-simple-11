@@ -1,6 +1,4 @@
-export type City = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
-
-export const RATING_MAX = 5;
+export type CityList = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
 
 export const enum HousingType {
   Apartment = 'Apartment',
@@ -42,3 +40,18 @@ export type Review = {
 };
 
 export type NewReview = Pick<Review, 'comment' | 'rating'>;
+
+export type City = {
+  title: string;
+  lat: number;
+  lng: number;
+  zoom: number;
+};
+
+export type Point = {
+  title: string;
+  lat: number;
+  lng: number;
+};
+
+export type Points = Point[];
