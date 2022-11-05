@@ -33,7 +33,7 @@ function Map({ city, points }: MapProps): JSX.Element {
     }
   }, [map, points]);
 
-  return <section className="cities__map map" ref={mapRef}></section>;
+  return <div style={{height: 'calc(100vh - 185.8px)'}} ref={mapRef}></div>;
 }
 
 export default Map;
