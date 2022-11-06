@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react';
 import { NewReview } from '../../types/types';
 import { RATING_UNDEFINED, REVIEW_MIN, REVIEW_MAX } from '../../const';
 
-function ReviewsForm(): JSX.Element {
+function FormReview(): JSX.Element {
   const [review, setReview] = useState<NewReview>({
     comment: '',
     rating: RATING_UNDEFINED,
@@ -92,4 +92,4 @@ function ReviewsForm(): JSX.Element {
   );
 }
 
-export default ReviewsForm;
+export default FormReview;
