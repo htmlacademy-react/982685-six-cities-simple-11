@@ -11,16 +11,13 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = new Map(mapRef.current, {
         center: {
-          lat: city.lat,
-          lng: city.lng,
+          lat: city.location.latitude,
+          lng: city.location.longitude,
         },
-        zoom: city.zoom,
+        zoom: city.location.zoom,
       });
 
-      const layer = new TileLayer(LEAFLET_URL, {
-        attribution: LEAFLET_ATTRIBUTION,
-      });
-
+      const layer = new TileLayer(LEAFLET_URL, { attribution: LEAFLET_ATTRIBUTION });
       instance.addLayer(layer);
 
       setMap(instance);

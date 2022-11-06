@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { City } from './types/types';
-import { mockOffersCard } from './mocks/offers';
+import { mockOffers } from './mocks/offers';
 import { CITY } from './mocks/city';
 
 const Settings: {
   city: City;
-  rentalOffers: number;
+  numberOffers: number;
 } = {
   city: CITY,
-  rentalOffers: 312,
+  numberOffers: 312,
 };
 
 const root = ReactDOM.createRoot(
@@ -21,8 +21,8 @@ root.render(
   <React.StrictMode>
     <App
       city={Settings.city}
-      rentalOffers={Settings.rentalOffers}
-      offers={mockOffersCard}
+      numberOffers={Settings.numberOffers}
+      offers={mockOffers}
     />
   </React.StrictMode>,
 );

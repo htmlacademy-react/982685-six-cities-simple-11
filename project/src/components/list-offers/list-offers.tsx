@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { OfferCardInfo } from '../../types/types';
+import { Offer, Offers } from '../../types/types';
 import OfferCard from '../offer-card/offer-card';
 
 type ListOffersProps = {
-  offers: OfferCardInfo[];
+  offers: Offers;
 };
 
 function ListOffers({ offers }: ListOffersProps): JSX.Element {
@@ -11,12 +11,12 @@ function ListOffers({ offers }: ListOffersProps): JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      { offers.map((offer: OfferCardInfo) => (
+      { offers.map((offer: Offer) => (
         <article
           className="cities__card place-card"
-          key={offer.id}
           onMouseEnter={() => setActiveCardId(offer.id)}
           onMouseLeave={() => setActiveCardId(null)}
+          key={offer.id}
         >
           <OfferCard offer={offer} />
         </article>
