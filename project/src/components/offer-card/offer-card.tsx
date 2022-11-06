@@ -1,22 +1,23 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, OfferCardInfo, RATING_MAX } from '../../types/types';
+import { AppRoute, Offer } from '../../types/types';
+import { RATING_MAX } from '../../const';
 
-type OfferCardProps ={
-  offer: OfferCardInfo;
+type OfferCardProps = {
+  offer: Offer;
 };
 
 function OfferCard({ offer }: OfferCardProps): JSX.Element {
-  const { id, isPremium, imageSrc, imageAlt, price, rating, name, type } = offer;
+  const { id, isPremium, previewImage, price, rating, title, type } = offer;
 
   return (
     <>
       {isPremium &&
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>}
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.Offer}/${id}`}>
-          <img className="place-card__image" src={imageSrc} alt={imageAlt} width="260" height="200" />
+          <img className="place-card__image" src={previewImage} alt={title} width="260" height="200" />
         </Link>
       </div>
       <div className="place-card__info">
@@ -28,12 +29,12 @@ function OfferCard({ offer }: OfferCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.round(100 / RATING_MAX * rating)}%`}}></span>
+            <span style={{ width: `${Math.round(100 / RATING_MAX * rating)}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/${id}`}>{name}</Link>
+          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

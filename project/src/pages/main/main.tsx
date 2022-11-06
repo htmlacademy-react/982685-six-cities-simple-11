@@ -1,15 +1,16 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import ListOffers from '../../components/list-offers/list-offers';
-import { City, OfferCardInfo} from '../../types/types';
+import Map from '../../components/map/map';
+import { City, Offers } from '../../types/types';
 
 type MainProps = {
   city: City;
-  rentalOffers: number;
-  offers: OfferCardInfo[];
+  numberOffers: number;
+  offers: Offers;
 };
 
-function Main({ city, rentalOffers, offers }: MainProps): JSX.Element {
+function Main({ city, numberOffers, offers }: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -45,7 +46,7 @@ function Main({ city, rentalOffers, offers }: MainProps): JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href="#dummy">
+                <a className="locations__item-link tabs__item" href="#dummy">
                   <span>Paris</span>
                 </a>
               </li>
@@ -60,7 +61,7 @@ function Main({ city, rentalOffers, offers }: MainProps): JSX.Element {
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#dummy">
+                <a className="locations__item-link tabs__item tabs__item--active" href="#dummy">
                   <span>Amsterdam</span>
                 </a>
               </li>
@@ -81,11 +82,11 @@ function Main({ city, rentalOffers, offers }: MainProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{rentalOffers} places to stay in {city}</b>
+              <b className="places__found">{numberOffers} places to stay in {city.name}</b>
               <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by </span>
+                <span className="places__sorting-caption">Sort by</span>{' '}
                 <span className="places__sorting-type" tabIndex={0}>
-                Popular
+                  Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
@@ -100,7 +101,9 @@ function Main({ city, rentalOffers, offers }: MainProps): JSX.Element {
               <ListOffers offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={city} offers={offers} />
+              </section>
             </div>
           </div>
         </div>

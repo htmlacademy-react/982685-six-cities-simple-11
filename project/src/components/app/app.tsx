@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { City, OfferCardInfo, AppRoute } from '../../types/types';
+import { City, Offers, AppRoute } from '../../types/types';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Property from '../../pages/property/property';
@@ -8,11 +8,11 @@ import NotFound from '../../pages/not-found/not-found';
 
 type AppProps = {
   city: City;
-  rentalOffers: number;
-  offers: OfferCardInfo[];
+  numberOffers: number;
+  offers: Offers;
 };
 
-function App({ city, rentalOffers, offers }: AppProps): JSX.Element {
+function App({ city, numberOffers, offers }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -22,7 +22,7 @@ function App({ city, rentalOffers, offers }: AppProps): JSX.Element {
             element={
               <Main
                 city={city}
-                rentalOffers={rentalOffers}
+                numberOffers={numberOffers}
                 offers={offers}
               />
             }
