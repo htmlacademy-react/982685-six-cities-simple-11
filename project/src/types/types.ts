@@ -1,4 +1,12 @@
-export type CityList = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
+/*
+ * Enumerations
+ */
+
+export const enum AppRoute {
+  Root = '/',
+  Login = '/login',
+  Offer = '/offer',
+}
 
 export const enum HousingType {
   Apartment = 'Apartment',
@@ -7,51 +15,68 @@ export const enum HousingType {
   Hotel = 'Hotel',
 }
 
-export type OfferCardInfo = {
-  id: number;
-  isPremium: boolean;
-  imageSrc: string;
-  imageAlt: string;
-  price: number;
-  rating: number;
-  name: string;
-  type: HousingType;
-}
+/*
+ * Types
+ */
+export type Cites = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
 
-export const enum AppRoute {
-  Root = '/',
-  Login = '/login',
-  Offer = '/offer',
-}
+export type Location = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+};
+
+export type Locations = Location[];
+
+export type City = {
+  name: Cites;
+  location: Location;
+};
 
 export type User = {
   id: number;
   name: string;
   isPro: boolean;
   avatarUrl: string;
-}
+  email: string;
+  token: string;
+};
+
+export type Hoster = Omit<User, 'email' | 'token'>;
+
+export type UserAuthentication = {
+  email: string;
+  password: string;
+};
+
+export type Offer = {
+  id: number;
+  city: City;
+  location: Location;
+  host: Hoster;
+  bedrooms: number;
+  goods: string[];
+  images: string[];
+  isPremium: boolean;
+  maxAdults: number;
+  previewImage: string;
+  price: number;
+  rating: number;
+  title: string;
+  type: string;
+  description: string;
+};
+
+export type Offers = Offer[];
 
 export type Review = {
   id: number;
-  comment: string;
   date: string;
   rating: number;
-  user: User;
+  comment: string;
+  user: Hoster;
 };
 
-export type NewReview = Pick<Review, 'comment' | 'rating'>;
+export type Reviews = Review[];
 
-export type City = {
-  title: string;
-  lat: number;
-  lng: number;
-  zoom: number;
-};
-
-export type Point = {
-  title: string;
-  lat: number;
-  lng: number;
-};
-
-export type Points = Point[];
+export type NewReview = Pick<Review, 'rating' | 'comment'>;
