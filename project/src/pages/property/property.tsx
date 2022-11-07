@@ -1,10 +1,27 @@
 import { Helmet } from 'react-helmet-async';
+import { Navigate, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import ListReviews from '../../components/list-reviews/list-reviews';
 import FormReview from '../../components/form-review/form-review';
-import { mockReviews } from '../../mocks/reviews';
+import Map from '../../components/map/map';
+import { AppRoute, Offers, ReviewsType } from '../../types/types';
 
-function Property(): JSX.Element {
+type PropertyProps = {
+  offers: Offers;
+  reviews: ReviewsType;
+}
+
+function Property({ offers, reviews }: PropertyProps): JSX.Element {
+  const { id } = useParams();
+  const currentOffer = offers.find((offer) => offer.id.toString() === id);
+
+  // If there is no offer with the specified identifier
+  if (!currentOffer) {
+    return <Navigate to={AppRoute.Root} />;
+  }
+
+  const nearbyOffers = offers.filter((offer) => (offer.id !== currentOffer.id));
+
   return (
     <div className="page">
       <Helmet>
@@ -70,7 +87,7 @@ function Property(): JSX.Element {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
+                  <span style={{ width: '80%' }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">4.8</span>
@@ -148,12 +165,14 @@ function Property(): JSX.Element {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <ListReviews reviews={mockReviews} />
+                <ListReviews reviews={reviews} />
                 <FormReview />
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map heightMap={'579px'} city={currentOffer.city} offers={nearbyOffers} />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -174,7 +193,7 @@ function Property(): JSX.Element {
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style={{width: '80%'}}></span>
+                      <span style={{ width: '80%' }}></span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
@@ -200,7 +219,7 @@ function Property(): JSX.Element {
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style={{width: '80%'}}></span>
+                      <span style={{ width: '80%' }}></span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
@@ -229,7 +248,7 @@ function Property(): JSX.Element {
                   </div>
                   <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                      <span style={{width: '100%'}}></span>
+                      <span style={{ width: '100%' }}></span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                   </div>
