@@ -102,7 +102,7 @@ function Main({ city, numberOffers, offers }: MainProps): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={city} offers={offers} />
+                <Map heightMap={'calc(100vh - 186px)'} city={city} offers={offers} />
               </section>
             </div>
           </div>
