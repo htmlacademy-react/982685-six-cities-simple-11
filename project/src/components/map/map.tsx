@@ -6,6 +6,7 @@ import { MARKER_DEFAULT_URL, MARKER_ACTIVE_URL } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
+  heightMap: string;
   city: City;
   offers: Offers;
   selectedOffer?: Offer | undefined;
@@ -23,7 +24,7 @@ const activeCustomIcon = new Icon({
   iconAnchor: [13, 39]
 });
 
-function Map({ city, offers, selectedOffer = undefined }: MapProps): JSX.Element {
+function Map({ heightMap, city, offers, selectedOffer = undefined }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -46,7 +47,7 @@ function Map({ city, offers, selectedOffer = undefined }: MapProps): JSX.Element
     });
   }, [map, offers, selectedOffer]);
 
-  return <div style={{ height: 'calc(100vh - 185.8px)' }} ref={mapRef}></div>;
+  return <div style={{ height: heightMap }} ref={mapRef}></div>;
 }
 
 export default Map;
