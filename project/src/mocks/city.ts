@@ -1,6 +1,6 @@
 import { City } from '../types/types';
 
-export const CITY: City = {
+export const mockCity: City = {
   name: 'Amsterdam',
   location: {
     latitude: 52.370216,
