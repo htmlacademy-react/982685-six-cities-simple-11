@@ -3,6 +3,7 @@ import Logo from '../../components/logo/logo';
 import ListOffers from '../../components/list-offers/list-offers';
 import Map from '../../components/map/map';
 import { City, Offers } from '../../types/types';
+import { BlockPlaces, Leaflet } from '../../const';
 
 type MainProps = {
   city: City;
@@ -98,11 +99,13 @@ function Main({ city, numberOffers, offers }: MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <ListOffers offers={offers} />
+              <div className="cities__places-list places__list tabs__content">
+                <ListOffers block={BlockPlaces.Cities} offers={offers} />
+              </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map heightMap={'calc(100vh - 186px)'} city={city} offers={offers} />
+                <Map heightMap={Leaflet.HeightMap.Main} city={city} offers={offers} />
               </section>
             </div>
           </div>
