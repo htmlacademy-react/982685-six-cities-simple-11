@@ -3,25 +3,26 @@ import { Offer, Offers } from '../../types/types';
 import OfferCard from '../offer-card/offer-card';
 
 type ListOffersProps = {
+  block: string;
   offers: Offers;
 };
 
-function ListOffers({ offers }: ListOffersProps): JSX.Element {
+function ListOffers({ block, offers }: ListOffersProps): JSX.Element {
   const [, setActiveCardId] = useState<number | null>(null);
 
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <>
       { offers.map((offer: Offer) => (
         <article
-          className="cities__card place-card"
+          className={`${block}__card place-card`}
           onMouseEnter={() => setActiveCardId(offer.id)}
           onMouseLeave={() => setActiveCardId(null)}
           key={offer.id}
         >
-          <OfferCard offer={offer} />
+          <OfferCard block={block} offer={offer} />
         </article>
       ))}
-    </div>
+    </>
   );
 }
 

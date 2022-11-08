@@ -69,7 +69,7 @@ export type Offer = {
 
 export type Offers = Offer[];
 
-export type Review = {
+export type ReviewType = {
   id: number;
   date: string;
   rating: number;
@@ -77,6 +77,6 @@ export type Review = {
   user: Hoster;
 };
 
-export type Reviews = Review[];
+export type ReviewsType = ReviewType[];
 
-export type NewReview = Pick<Review, 'rating' | 'comment'>;
+export type NewReview = Pick<ReviewType, 'rating' | 'comment'>;

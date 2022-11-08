@@ -2,14 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { City } from './types/types';
+import { mockCity } from './mocks/city';
 import { mockOffers } from './mocks/offers';
-import { CITY } from './mocks/city';
+import { mockReviews } from './mocks/reviews';
 
 const Settings: {
   city: City;
   numberOffers: number;
 } = {
-  city: CITY,
+  city: mockCity,
   numberOffers: 312,
 };
 
@@ -23,6 +24,7 @@ root.render(
       city={Settings.city}
       numberOffers={Settings.numberOffers}
       offers={mockOffers}
+      reviews={mockReviews}
     />
   </React.StrictMode>,
 );

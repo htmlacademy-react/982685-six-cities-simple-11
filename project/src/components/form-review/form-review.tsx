@@ -1,11 +1,11 @@
 import { Fragment, useState } from 'react';
 import { NewReview } from '../../types/types';
-import { RATING_UNDEFINED, REVIEW_MIN, REVIEW_MAX } from '../../const';
+import { Rating, Review } from '../../const';
 
-function ReviewsForm(): JSX.Element {
+function FormReview(): JSX.Element {
   const [review, setReview] = useState<NewReview>({
     comment: '',
-    rating: RATING_UNDEFINED,
+    rating: Rating.Undefined,
   });
 
   const ratings: {value: number; title: string }[] = [
@@ -80,9 +80,9 @@ function ReviewsForm(): JSX.Element {
           className="reviews__submit form__submit button"
           type="submit"
           disabled={
-            review.rating === RATING_UNDEFINED ||
-            review.comment.length < REVIEW_MIN ||
-            review.comment.length >= REVIEW_MAX
+            review.rating === Rating.Undefined ||
+            review.comment.length < Review.MinLength ||
+            review.comment.length >= Review.MaxLength
           }
         >
           Submit
@@ -92,4 +92,4 @@ function ReviewsForm(): JSX.Element {
   );
 }
 
-export default ReviewsForm;
+export default FormReview;

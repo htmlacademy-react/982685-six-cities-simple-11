@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, Offer } from '../../types/types';
-import { RATING_MAX } from '../../const';
+import { getWidthRating } from '../../utils/utils';
 
 type OfferCardProps = {
+  block: string;
   offer: Offer;
 };
 
-function OfferCard({ offer }: OfferCardProps): JSX.Element {
+function OfferCard({ block, offer }: OfferCardProps): JSX.Element {
   const { id, isPremium, previewImage, price, rating, title, type } = offer;
 
   return (
@@ -15,7 +16,7 @@ function OfferCard({ offer }: OfferCardProps): JSX.Element {
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/${id}`}>
           <img className="place-card__image" src={previewImage} alt={title} width="260" height="200" />
         </Link>
@@ -29,7 +30,7 @@ function OfferCard({ offer }: OfferCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${Math.round(100 / RATING_MAX * rating)}%` }}></span>
+            <span style={{ width: `${getWidthRating(rating)}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

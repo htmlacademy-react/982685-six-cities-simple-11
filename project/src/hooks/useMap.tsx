@@ -1,7 +1,7 @@
 import { MutableRefObject, useState, useRef, useEffect } from 'react';
 import { Map, TileLayer } from 'leaflet';
 import { City } from '../types/types';
-import { LEAFLET_URL, LEAFLET_ATTRIBUTION } from '../const';
+import { Leaflet } from '../const';
 
 function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map | null {
   const [map, setMap] = useState<Map | null>(null);
@@ -17,7 +17,7 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
         zoom: city.location.zoom,
       });
 
-      const layer = new TileLayer(LEAFLET_URL, { attribution: LEAFLET_ATTRIBUTION });
+      const layer = new TileLayer(Leaflet.MapUrl, { attribution: Leaflet.Attribution });
       instance.addLayer(layer);
 
       setMap(instance);
