@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { store } from './store';
-import { cities } from './const';
 import { mockReviews } from './mocks/reviews';
 
 const root = ReactDOM.createRoot(
@@ -13,10 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        cities={cities}
-        reviews={mockReviews}
-      />
+      <App reviews={mockReviews} />
     </Provider>
   </React.StrictMode>,
 );

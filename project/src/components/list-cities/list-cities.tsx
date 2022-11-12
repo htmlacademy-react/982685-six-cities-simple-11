@@ -2,14 +2,14 @@ import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { changeCityAction } from '../../store/actions';
-import { City, Cities, CityName, AppRoute } from '../../types/types';
+import { City, CityName, AppRoute } from '../../types/types';
+import { cities } from '../../const';
 
 type ListCitiesProps = {
-  cities: Cities;
   currentCity: City;
 }
 
-const ListCities = ({ cities, currentCity }: ListCitiesProps): JSX.Element => {
+const ListCities = ({ currentCity }: ListCitiesProps): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const handleLocationChange = (evt: MouseEvent<HTMLAnchorElement>) => {

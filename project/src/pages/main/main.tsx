@@ -1,17 +1,18 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
+import ListCities from '../../components/list-cities/list-cities';
 import ListOffers from '../../components/list-offers/list-offers';
 import Map from '../../components/map/map';
-import { City, Offers } from '../../types/types';
+import MainEmpty from '../main-empty/main-empty';
 import { BlockPlaces, Leaflet } from '../../const';
+import { useAppSelector } from '../../hooks';
 
-type MainProps = {
-  city: City;
-  numberOffers: number;
-  offers: Offers;
-};
+function Main(): JSX.Element {
+  const currentCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === currentCity.name));
+  const numberOffers = offers.length;
+  const isOffers = (numberOffers > 0);
 
-function Main({ city, numberOffers, offers }: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -41,74 +42,46 @@ function Main({ city, numberOffers, offers }: MainProps): JSX.Element {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index${!isOffers ? ' page__main--index-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#dummy">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#dummy">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#dummy">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href="#dummy">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#dummy">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#dummy">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <ListCities currentCity={currentCity} />
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{numberOffers} places to stay in {city.name}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>{' '}
-                <span className="places__sorting-type" tabIndex={0}>
+          { isOffers && (
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{numberOffers} places to stay in {currentCity.name}</b>
+                <form className="places__sorting" action="#" method="get">
+                  <span className="places__sorting-caption">Sort by</span>{' '}
+                  <span className="places__sorting-type" tabIndex={0}>
                   Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
-              <div className="cities__places-list places__list tabs__content">
-                <ListOffers block={BlockPlaces.Cities} offers={offers} />
-              </div>
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map heightMap={Leaflet.HeightMap.Main} city={city} offers={offers} />
+                    <svg className="places__sorting-arrow" width="7" height="4">
+                      <use xlinkHref="#icon-arrow-select"></use>
+                    </svg>
+                  </span>
+                  <ul className="places__options places__options--custom places__options--opened">
+                    <li className="places__option places__option--active" tabIndex={0}>Popular</li>
+                    <li className="places__option" tabIndex={0}>Price: low to high</li>
+                    <li className="places__option" tabIndex={0}>Price: high to low</li>
+                    <li className="places__option" tabIndex={0}>Top rated first</li>
+                  </ul>
+                </form>
+                <div className="cities__places-list places__list tabs__content">
+                  <ListOffers block={BlockPlaces.Cities} offers={offers} />
+                </div>
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map heightMap={Leaflet.HeightMap.Main} city={currentCity} offers={offers} />
+                </section>
+              </div>
             </div>
-          </div>
+          )}
+          { !isOffers && <MainEmpty city={currentCity} /> }
         </div>
       </main>
     </div>
