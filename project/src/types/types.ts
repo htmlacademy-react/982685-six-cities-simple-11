@@ -15,11 +15,18 @@ export const enum HousingType {
   Hotel = 'Hotel',
 }
 
+export const enum CityName {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf'
+}
+
 /*
  * Types
  */
-export type Cites = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
-
 export type Location = {
   latitude: number;
   longitude: number;
@@ -29,9 +36,11 @@ export type Location = {
 export type Locations = Location[];
 
 export type City = {
-  name: Cites;
   location: Location;
+  name: CityName;
 };
+
+export type Cities = City[];
 
 export type User = {
   id: number;
