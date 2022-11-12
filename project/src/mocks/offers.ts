@@ -1,4 +1,4 @@
-import { HousingType, Offers } from '../types/types';
+import { CityName, HousingType, Offers } from '../types/types';
 
 export const mockOffers: Offers = [
   {
@@ -9,7 +9,7 @@ export const mockOffers: Offers = [
         longitude: 4.895168,
         zoom: 10,
       },
-      name: 'Amsterdam',
+      name: CityName.Amsterdam,
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating'],
@@ -43,7 +43,7 @@ export const mockOffers: Offers = [
         longitude: 4.895168,
         zoom: 10,
       },
-      name: 'Amsterdam',
+      name: CityName.Amsterdam,
     },
     description: 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
     goods: [
@@ -89,7 +89,7 @@ export const mockOffers: Offers = [
         longitude: 4.895168,
         zoom: 10,
       },
-      name: 'Amsterdam',
+      name: CityName.Amsterdam,
     },
     description: 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
     goods: [
@@ -129,7 +129,7 @@ export const mockOffers: Offers = [
         longitude: 4.895168,
         zoom: 10,
       },
-      name: 'Amsterdam',
+      name: CityName.Amsterdam,
     },
     description: 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
     goods: [
