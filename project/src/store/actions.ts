@@ -8,8 +8,8 @@ export const changeCityAction = createAction(
   })
 );
 
-export const setOffersAction = createAction(
-  'offers/setOffers',
+export const loadOffersAction = createAction(
+  'offers/loadOffers',
   (offers: Offers) => ({
     payload: offers,
   })
