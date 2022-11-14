@@ -12,24 +12,26 @@ type ListCitiesProps = {
 const ListCities = ({ currentCity }: ListCitiesProps): JSX.Element => {
   const dispatch = useAppDispatch();
 
-  const handleLocationChange = (evt: MouseEvent<HTMLAnchorElement>) => {
+  const handleCityClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     const selectedCityName = evt.currentTarget.textContent as CityName;
-    const selectedCity = cities.find((city) => city.name === selectedCityName ) as City;
 
-    dispatch(changeCityAction(selectedCity));
+    if (selectedCityName !== currentCity.name) {
+      const selectedCity = cities.find(({ name }) => name === selectedCityName) as City;
+      dispatch(changeCityAction(selectedCity));
+    }
   };
 
   return (
     <ul className="locations__list tabs__list">
-      {cities.map((city) => (
-        <li className="locations__item" key={city.name}>
+      {cities.map(({ name }) => (
+        <li className="locations__item" key={name}>
           <Link
-            className={`locations__item-link tabs__item${city.name === currentCity.name ? ' tabs__item--active' : ''}`}
+            className={`locations__item-link tabs__item${name === currentCity.name ? ' tabs__item--active' : ''}`}
             to={AppRoute.Root}
-            onClick={handleLocationChange}
+            onClick={handleCityClick}
           >
-            <span>{city.name}</span>
+            <span>{name}</span>
           </Link>
         </li>
       ))}
