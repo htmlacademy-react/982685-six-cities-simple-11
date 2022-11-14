@@ -1,16 +1,18 @@
 import { Helmet } from 'react-helmet-async';
+import { useAppSelector } from '../../hooks';
 import Logo from '../../components/logo/logo';
 import ListCities from '../../components/list-cities/list-cities';
 import ListOffers from '../../components/list-offers/list-offers';
 import Map from '../../components/map/map';
 import MainEmpty from '../main-empty/main-empty';
 import { BlockPlaces, Leaflet } from '../../const';
-import { useAppSelector } from '../../hooks';
 
 function Main(): JSX.Element {
   const currentCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === currentCity.name));
-  const numberOffers = offers.length;
+  const allOffers = useAppSelector((state) => state.offers);
+
+  const cityOffers = allOffers.filter((offer) => offer.city.name === currentCity.name);
+  const numberOffers = cityOffers.length;
   const isOffers = (numberOffers > 0);
 
   return (
@@ -50,15 +52,14 @@ function Main(): JSX.Element {
           </section>
         </div>
         <div className="cities">
-          { isOffers && (
+          {isOffers ? (
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{numberOffers} places to stay in {currentCity.name}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>{' '}
-                  <span className="places__sorting-type" tabIndex={0}>
-                  Popular
+                  <span className="places__sorting-type" tabIndex={0}>Popular
                     <svg className="places__sorting-arrow" width="7" height="4">
                       <use xlinkHref="#icon-arrow-select"></use>
                     </svg>
@@ -71,17 +72,16 @@ function Main(): JSX.Element {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  <ListOffers block={BlockPlaces.Cities} offers={offers} />
+                  <ListOffers block={BlockPlaces.Cities} offers={cityOffers} />
                 </div>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map heightMap={Leaflet.HeightMap.Main} city={currentCity} offers={offers} />
+                  <Map heightMap={Leaflet.HeightMap.Main} city={currentCity} offers={cityOffers} />
                 </section>
               </div>
             </div>
-          )}
-          { !isOffers && <MainEmpty city={currentCity} /> }
+          ) : <MainEmpty city={currentCity} />}
         </div>
       </main>
     </div>
