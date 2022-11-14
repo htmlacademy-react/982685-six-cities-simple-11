@@ -5,16 +5,18 @@ import ListReviews from '../../components/list-reviews/list-reviews';
 import FormReview from '../../components/form-review/form-review';
 import Map from '../../components/map/map';
 import ListOffers from '../../components/list-offers/list-offers';
-import { AppRoute, Offers, ReviewsType } from '../../types/types';
+import { useAppSelector } from '../../hooks';
+import { AppRoute, ReviewsType } from '../../types/types';
 import { BlockPlaces, Leaflet } from '../../const';
 
 type PropertyProps = {
-  offers: Offers;
   reviews: ReviewsType;
 }
 
-function Property({ offers, reviews }: PropertyProps): JSX.Element {
+function Property({ reviews }: PropertyProps): JSX.Element {
   const { id } = useParams();
+
+  const offers = useAppSelector((state) => state.offers);
   const currentOffer = offers.find((offer) => offer.id.toString() === id);
 
   // If there is no offer with the specified identifier
