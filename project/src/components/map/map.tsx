@@ -31,6 +31,8 @@ function Map({ heightMap, city, offers, selectedOffer = undefined }: MapProps): 
   useEffect(() => {
     if (!map) { return; }
 
+    map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+
     offers.forEach(({ location, title }) => {
       const marker = new Marker({
         lat: location.latitude,
@@ -45,7 +47,7 @@ function Map({ heightMap, city, offers, selectedOffer = undefined }: MapProps): 
         )
         .addTo(map);
     });
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, selectedOffer, city]);
 
   return <div style={{ height: heightMap }} ref={mapRef}></div>;
 }
