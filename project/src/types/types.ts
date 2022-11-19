@@ -24,6 +24,13 @@ export const enum CityName {
   Dusseldorf = 'Dusseldorf'
 }
 
+export enum SortTypes {
+  Popular = 'Popular',
+  PriceToHigh = 'Price: low to high',
+  PriceToLow = 'Price: high to low',
+  TopRated = 'Top rated first'
+}
+
 /*
  * Types
  */

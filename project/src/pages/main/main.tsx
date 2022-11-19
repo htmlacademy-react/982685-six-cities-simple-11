@@ -1,17 +1,26 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
 import Logo from '../../components/logo/logo';
 import ListCities from '../../components/list-cities/list-cities';
 import ListOffers from '../../components/list-offers/list-offers';
+import SortingOptions from '../../components/sorting-options/sorting-options';
 import Map from '../../components/map/map';
 import MainEmpty from '../main-empty/main-empty';
 import { BlockPlaces, Leaflet } from '../../const';
+import { getOffersByCity } from '../../utils/utils';
+import sortOffers from '../../utils/sort-offers';
 
 function Main(): JSX.Element {
+  const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(undefined);
+  const handleMouseEnterOffer = (offerId: number) => setSelectedOfferId(offerId);
+  const handleMouseLeaveOffer = () => setSelectedOfferId(undefined);
+
   const currentCity = useAppSelector((state) => state.city);
   const allOffers = useAppSelector((state) => state.offers);
+  const sortType = useAppSelector((state) => state.sortOffers);
 
-  const cityOffers = allOffers.filter((offer) => offer.city.name === currentCity.name);
+  const cityOffers = getOffersByCity(allOffers, currentCity);
   const numberOffers = cityOffers.length;
   const isOffers = (numberOffers > 0);
 
@@ -44,7 +53,7 @@ function Main(): JSX.Element {
         </div>
       </header>
 
-      <main className={`page__main page__main--index${!isOffers ? ' page__main--index-empty' : ''}`}>
+      <main className={`page__main page__main--index${isOffers ? '' : ' page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -57,27 +66,19 @@ function Main(): JSX.Element {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{numberOffers} places to stay in {currentCity.name}</b>
-                <form className="places__sorting" action="#" method="get">
-                  <span className="places__sorting-caption">Sort by</span>{' '}
-                  <span className="places__sorting-type" tabIndex={0}>Popular
-                    <svg className="places__sorting-arrow" width="7" height="4">
-                      <use xlinkHref="#icon-arrow-select"></use>
-                    </svg>
-                  </span>
-                  <ul className="places__options places__options--custom places__options--opened">
-                    <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                    <li className="places__option" tabIndex={0}>Price: low to high</li>
-                    <li className="places__option" tabIndex={0}>Price: high to low</li>
-                    <li className="places__option" tabIndex={0}>Top rated first</li>
-                  </ul>
-                </form>
+                <SortingOptions />
                 <div className="cities__places-list places__list tabs__content">
-                  <ListOffers block={BlockPlaces.Cities} offers={cityOffers} />
+                  <ListOffers
+                    block={BlockPlaces.Cities}
+                    offers={sortOffers(cityOffers, sortType)}
+                    handleMouseEnterOffer={handleMouseEnterOffer}
+                    handleMouseLeaveOffer={handleMouseLeaveOffer}
+                  />
                 </div>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map heightMap={Leaflet.HeightMap.Main} city={currentCity} offers={cityOffers} />
+                  <Map heightMap={Leaflet.HeightMap.Main} city={currentCity} offers={cityOffers} selectedOfferId={selectedOfferId}/>
                 </section>
               </div>
             </div>
