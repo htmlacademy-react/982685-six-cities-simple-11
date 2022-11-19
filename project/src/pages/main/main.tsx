@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
 import Logo from '../../components/logo/logo';
@@ -11,6 +12,10 @@ import { getOffersByCity } from '../../utils/utils';
 import sortOffers from '../../utils/sort-offers';
 
 function Main(): JSX.Element {
+  const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(undefined);
+  const handleMouseEnterOffer = (offerId: number) => setSelectedOfferId(offerId);
+  const handleMouseLeaveOffer = () => setSelectedOfferId(undefined);
+
   const currentCity = useAppSelector((state) => state.city);
   const allOffers = useAppSelector((state) => state.offers);
   const sortType = useAppSelector((state) => state.sortOffers);
@@ -63,12 +68,17 @@ function Main(): JSX.Element {
                 <b className="places__found">{numberOffers} places to stay in {currentCity.name}</b>
                 <SortingOptions />
                 <div className="cities__places-list places__list tabs__content">
-                  <ListOffers block={BlockPlaces.Cities} offers={sortOffers(cityOffers, sortType)} />
+                  <ListOffers
+                    block={BlockPlaces.Cities}
+                    offers={sortOffers(cityOffers, sortType)}
+                    handleMouseEnterOffer={handleMouseEnterOffer}
+                    handleMouseLeaveOffer={handleMouseLeaveOffer}
+                  />
                 </div>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map heightMap={Leaflet.HeightMap.Main} city={currentCity} offers={cityOffers} />
+                  <Map heightMap={Leaflet.HeightMap.Main} city={currentCity} offers={cityOffers} selectedOfferId={selectedOfferId}/>
                 </section>
               </div>
             </div>

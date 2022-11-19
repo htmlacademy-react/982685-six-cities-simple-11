@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { Icon, Marker } from 'leaflet';
 import useMap from '../../hooks/useMap';
-import { City, Offers, Offer } from '../../types/types';
+import { City, Offers } from '../../types/types';
 import { Leaflet } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
@@ -9,22 +9,22 @@ type MapProps = {
   heightMap: string;
   city: City;
   offers: Offers;
-  selectedOffer?: Offer | undefined;
+  selectedOfferId?: number;
 };
 
 const defaultCustomIcon = new Icon({
-  iconUrl: Leaflet.MarkerDefaultUrl,
-  iconSize: [27, 39],
-  iconAnchor: [13, 39],
+  iconUrl: Leaflet.Marker.DefaultUrl,
+  iconSize: [Leaflet.Marker.IconWidth, Leaflet.Marker.IconHegth],
+  iconAnchor: [Leaflet.Marker.IconWidth / 2, Leaflet.Marker.IconHegth],
 });
 
 const activeCustomIcon = new Icon({
-  iconUrl: Leaflet.MarkerActiveUrl,
-  iconSize: [27, 39],
-  iconAnchor: [13, 39]
+  iconUrl: Leaflet.Marker.ActiveUrl,
+  iconSize: [Leaflet.Marker.IconWidth, Leaflet.Marker.IconHegth],
+  iconAnchor: [Leaflet.Marker.IconWidth / 2, Leaflet.Marker.IconHegth],
 });
 
-function Map({ heightMap, city, offers, selectedOffer = undefined }: MapProps): JSX.Element {
+function Map({ heightMap, city, offers, selectedOfferId = undefined }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -33,7 +33,7 @@ function Map({ heightMap, city, offers, selectedOffer = undefined }: MapProps): 
 
     map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
 
-    offers.forEach(({ location, title }) => {
+    offers.forEach(({ id, location }) => {
       const marker = new Marker({
         lat: location.latitude,
         lng: location.longitude,
@@ -41,13 +41,13 @@ function Map({ heightMap, city, offers, selectedOffer = undefined }: MapProps): 
 
       marker
         .setIcon(
-          selectedOffer && (title === selectedOffer.title)
+          selectedOfferId && (id === selectedOfferId)
             ? activeCustomIcon
             : defaultCustomIcon
         )
         .addTo(map);
     });
-  }, [map, offers, selectedOffer, city]);
+  }, [map, offers, city, selectedOfferId]);
 
   return <div style={{ height: heightMap }} ref={mapRef}></div>;
 }

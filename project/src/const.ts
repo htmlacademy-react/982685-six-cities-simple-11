@@ -77,8 +77,12 @@ export const Review = {
 export const Leaflet = {
   MapUrl: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
   Attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-  MarkerDefaultUrl: 'img/pin.svg',
-  MarkerActiveUrl: 'img/pin-active.svg',
+  Marker: {
+    DefaultUrl: 'img/pin.svg',
+    ActiveUrl: 'img/pin-active.svg',
+    IconWidth: 27,
+    IconHegth: 39,
+  },
   HeightMap: {
     Main: 'calc(100vh - 186px)',
     Property: '579px',

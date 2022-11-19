@@ -1,30 +1,38 @@
 import { Helmet } from 'react-helmet-async';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import ListReviews from '../../components/list-reviews/list-reviews';
 import FormReview from '../../components/form-review/form-review';
 import Map from '../../components/map/map';
 import ListOffers from '../../components/list-offers/list-offers';
+import NotFound from '../not-found/not-found';
 import { useAppSelector } from '../../hooks';
-import { AppRoute, ReviewsType } from '../../types/types';
+import { ReviewsType } from '../../types/types';
 import { BlockPlaces, Leaflet } from '../../const';
+import { useState } from 'react';
+import { getOffersByCity } from '../../utils/utils';
 
 type PropertyProps = {
   reviews: ReviewsType;
 }
 
 function Property({ reviews }: PropertyProps): JSX.Element {
-  const { id } = useParams();
+  const [, setSelectedOfferId] = useState<number | undefined>(undefined);
+  const handleMouseEnterOffer = (offerId: number) => setSelectedOfferId(offerId);
+  const handleMouseLeaveOffer = () => setSelectedOfferId(undefined);
 
-  const offers = useAppSelector((state) => state.offers);
-  const currentOffer = offers.find((offer) => offer.id.toString() === id);
+  const currentCity = useAppSelector((state) => state.city);
+  const allOffers = useAppSelector((state) => state.offers);
+  const cityOffers = getOffersByCity(allOffers, currentCity);
+  const { id } = useParams();
+  const currentOffer = cityOffers.find((offer) => id === offer.id.toString());
 
   // If there is no offer with the specified identifier
   if (!currentOffer) {
-    return <Navigate to={AppRoute.Root} />;
+    return <NotFound />;
   }
 
-  const nearbyOffers = offers.filter((offer) => (offer.id !== currentOffer.id));
+  const nearbyOffers = cityOffers.filter((offer) => (offer.id !== currentOffer.id));
 
   return (
     <div className="page">
@@ -178,7 +186,12 @@ function Property({ reviews }: PropertyProps): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <ListOffers block={BlockPlaces.NearPlaces} offers={nearbyOffers} />
+              <ListOffers
+                block={BlockPlaces.NearPlaces}
+                offers={nearbyOffers}
+                handleMouseEnterOffer={handleMouseEnterOffer}
+                handleMouseLeaveOffer={handleMouseLeaveOffer}
+              />
             </div>
           </section>
         </div>
