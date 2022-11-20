@@ -1,24 +1,33 @@
-import { useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Logo from '../../components/logo/logo';
 import ListCities from '../../components/list-cities/list-cities';
 import ListOffers from '../../components/list-offers/list-offers';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import Map from '../../components/map/map';
 import MainEmpty from '../main-empty/main-empty';
+import { logoutAction } from '../../store/api-actions';
 import { BlockPlaces, Leaflet } from '../../const';
 import { getOffersByCity } from '../../utils/utils';
 import sortOffers from '../../utils/sort-offers';
+import { AppRoute, AuthorizationStatus } from '../../types/types';
 
 function Main(): JSX.Element {
   const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(undefined);
   const handleMouseEnterOffer = (offerId: number) => setSelectedOfferId(offerId);
   const handleMouseLeaveOffer = () => setSelectedOfferId(undefined);
 
+  const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
   const allOffers = useAppSelector((state) => state.offers);
-  const sortType = useAppSelector((state) => state.sortOffers);
+  const sortOptionOffers = useAppSelector((state) => state.sortOptionOffers);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  const handleLogoutClick: MouseEventHandler<HTMLAnchorElement> = (): void => {
+    dispatch(logoutAction());
+  };
 
   const cityOffers = getOffersByCity(allOffers, currentCity);
   const numberOffers = cityOffers.length;
@@ -35,19 +44,30 @@ function Main(): JSX.Element {
           <div className="header__wrapper">
             <Logo />
             <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <div className="header__nav-profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </div>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#dummy">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
+              {authorizationStatus === AuthorizationStatus.Auth ? (
+                <ul className="header__nav-list">
+                  <li className="header__nav-item user">
+                    <div className="header__nav-profile">
+                      <div className="header__avatar-wrapper user__avatar-wrapper" />
+                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    </div>
+                  </li>
+                  <li className="header__nav-item">
+                    <Link className="header__nav-link" to={AppRoute.Root} onClick={handleLogoutClick}>
+                      <span className="header__signout">Sign out</span>
+                    </Link>
+                  </li>
+                </ul>
+              ) : (
+                <ul className="header__nav-list">
+                  <li className="header__nav-item user">
+                    <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
+                      <div className="header__avatar-wrapper user__avatar-wrapper" />
+                      <span className="header__login">Sign in</span>
+                    </Link>
+                  </li>
+                </ul>
+              )}
             </nav>
           </div>
         </div>
@@ -70,7 +90,7 @@ function Main(): JSX.Element {
                 <div className="cities__places-list places__list tabs__content">
                   <ListOffers
                     block={BlockPlaces.Cities}
-                    offers={sortOffers(cityOffers, sortType)}
+                    offers={sortOffers(cityOffers, sortOptionOffers)}
                     handleMouseEnterOffer={handleMouseEnterOffer}
                     handleMouseLeaveOffer={handleMouseLeaveOffer}
                   />

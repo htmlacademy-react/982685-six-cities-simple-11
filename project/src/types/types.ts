@@ -15,6 +15,12 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
 export const enum HousingType {
   Apartment = 'Apartment',
   Room = 'Private Room',
@@ -67,9 +73,15 @@ export type User = {
 
 export type Hoster = Omit<User, 'email' | 'token'>;
 
-export type UserAuthentication = {
-  email: string;
+export type AuthData = {
+  login: string;
   password: string;
+};
+
+export type UserData = {
+  id: number;
+  email: string;
+  token: string;
 };
 
 export type Offer = {

@@ -1,20 +1,33 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute, ReviewsType } from '../../types/types';
+import { useAppSelector } from '../../hooks';
+import { AppRoute, AuthorizationStatus, ReviewsType } from '../../types/types';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Property from '../../pages/property/property';
 import NotFound from '../../pages/not-found/not-found';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
+import Spinner from '../spinner/spinner';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 type AppProps = {
   reviews: ReviewsType;
 };
 
 function App({ reviews }: AppProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isDataLoading = useAppSelector((state) => state.isDataLoading);
+
+  if ((authorizationStatus === AuthorizationStatus.Unknown) || isDataLoading) {
+    return (
+      <Spinner />
+    );
+  }
+
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <ScrollToTop />
         <Routes>
           <Route
@@ -34,7 +47,7 @@ function App({ reviews }: AppProps): JSX.Element {
             element={<NotFound />}
           />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }
