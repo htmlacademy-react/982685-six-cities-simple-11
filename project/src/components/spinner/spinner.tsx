@@ -1,18 +1,14 @@
-import { Helmet } from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
 import './spinner.css';
 
 function Spinner(): JSX.Element {
   return (
     <div className="page page--gray page--login">
-      <Helmet>
-        <title>Six cities simple: Loading data</title>
-      </Helmet>
-
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
-            <Logo />
+            <span className="header__logo-link header__logo-link--active">
+              <img className="header__logo" src="img/logo.svg" alt="Six cities logo" width="81" height="41" />
+            </span>
           </div>
         </div>
       </header>
@@ -36,7 +32,6 @@ function Spinner(): JSX.Element {
               <div />
             </div>
           </section>
-          <section className="locations locations--login locations--current" />
         </div>
       </main>
     </div>
