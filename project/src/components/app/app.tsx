@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
-import { AppRoute, AuthorizationStatus, ReviewsType } from '../../types/types';
+import { AppRoute, AuthorizationStatus } from '../../types/types';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Property from '../../pages/property/property';
@@ -11,11 +11,7 @@ import Spinner from '../spinner/spinner';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
-type AppProps = {
-  reviews: ReviewsType;
-};
-
-function App({ reviews }: AppProps): JSX.Element {
+function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
 
@@ -40,7 +36,7 @@ function App({ reviews }: AppProps): JSX.Element {
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<Property reviews={reviews} />}
+            element={<Property />}
           />
           <Route
             path="*"
