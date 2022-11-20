@@ -22,7 +22,7 @@ function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
   const allOffers = useAppSelector((state) => state.offers);
-  const sortType = useAppSelector((state) => state.sortOffers);
+  const sortOptionOffers = useAppSelector((state) => state.sortOptionOffers);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   const handleLogoutClick: MouseEventHandler<HTMLAnchorElement> = (): void => {
@@ -90,7 +90,7 @@ function Main(): JSX.Element {
                 <div className="cities__places-list places__list tabs__content">
                   <ListOffers
                     block={BlockPlaces.Cities}
-                    offers={sortOffers(cityOffers, sortType)}
+                    offers={sortOffers(cityOffers, sortOptionOffers)}
                     handleMouseEnterOffer={handleMouseEnterOffer}
                     handleMouseLeaveOffer={handleMouseLeaveOffer}
                   />
