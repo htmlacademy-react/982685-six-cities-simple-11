@@ -8,6 +8,13 @@ export const enum AppRoute {
   Offer = '/offer',
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+  Reviews = '/comments/',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export const enum HousingType {
   Apartment = 'Apartment',
   Room = 'Private Room',
