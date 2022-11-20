@@ -3,7 +3,7 @@ import { City, Offers, SortTypes } from './../types/types';
 
 export const changeCityAction = createAction<City>('offers/changeCity');
 
-export const fetchOffersAction = createAction<Offers>('offers/fetchOffers');
+export const setOffersAction = createAction<Offers>('offers/setOffers');
 
 export const sortOffersAction = createAction(
   'offers/sortOffers',
