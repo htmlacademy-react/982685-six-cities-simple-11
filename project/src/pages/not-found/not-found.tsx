@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { AppRoute } from '../../types/types';
-import Logo from '../../components/logo/logo';
 
 function NotFound(): JSX.Element {
   return (
@@ -9,14 +8,6 @@ function NotFound(): JSX.Element {
       <Helmet>
         <title>Six cities simple: Page not found</title>
       </Helmet>
-
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <Logo />
-          </div>
-        </div>
-      </header>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">

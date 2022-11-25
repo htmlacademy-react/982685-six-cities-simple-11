@@ -1,12 +1,24 @@
 import { Fragment, useState } from 'react';
 import { NewReview } from '../../types/types';
 import { Rating, Review } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { fetchSendCommentAction } from '../../store/api-actions';
 
-function FormReview(): JSX.Element {
+type FormReviewProps = {
+  hotelId: number;
+}
+function FormReview({ hotelId }: FormReviewProps): JSX.Element {
   const [review, setReview] = useState<NewReview>({
     comment: '',
     rating: Rating.Undefined,
   });
+
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = async () => {
+    await dispatch(fetchSendCommentAction({ id: hotelId, comment: review.comment, rating: review.rating }));
+    setReview({ comment: '', rating: Rating.Undefined });
+  };
 
   const ratings: {value: number; title: string }[] = [
     {
@@ -32,7 +44,15 @@ function FormReview(): JSX.Element {
   ];
 
   return (
-    <form className="reviews__form form" method="post" action="https://echo.htmlacademy.ru/">
+    <form
+      className="reviews__form form"
+      method="post"
+      action=""
+      onSubmit={(evt) => {
+        evt.preventDefault();
+        handleSubmit();
+      }}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
