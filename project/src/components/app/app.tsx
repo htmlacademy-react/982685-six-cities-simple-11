@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../types/types';
+import Layout from '../layout/layout';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Property from '../../pages/property/property';
@@ -26,22 +27,13 @@ function App(): JSX.Element {
       <HistoryRouter history={browserHistory}>
         <ScrollToTop />
         <Routes>
-          <Route
-            path={AppRoute.Root}
-            element={<Main />}
-          />
-          <Route
-            path={AppRoute.Login}
-            element={<Login />}
-          />
-          <Route
-            path={`${AppRoute.Offer}/:id`}
-            element={<Property />}
-          />
-          <Route
-            path="*"
-            element={<NotFound />}
-          />
+          <Route path={AppRoute.Root} element={<Layout />}>
+            <Route index element={<Main />} />
+            <Route path={`${AppRoute.Offer}/:id`} element={<Property />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+          <Route path={AppRoute.Login} element={<Login />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </HistoryRouter>
     </HelmetProvider>
