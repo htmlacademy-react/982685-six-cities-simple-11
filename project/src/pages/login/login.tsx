@@ -1,30 +1,34 @@
-import { useRef, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { useRef, FormEvent, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { AppRoute, AuthData } from '../../types/types';
+import { AppRoute, AuthorizationStatus } from '../../types/types';
 import { INITIAL_CITY } from '../../const';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  const onSubmit = (authData: AuthData) => {
-    dispatch(loginAction(authData));
-  };
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Root);
+    }
+  }, [authorizationStatus, navigate]);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
+      dispatch(loginAction({
         login: loginRef.current.value,
         password: passwordRef.current.value,
-      });
+      }));
     }
   };
 

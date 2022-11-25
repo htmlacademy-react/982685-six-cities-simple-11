@@ -1,11 +1,25 @@
 import Review from '../review/review';
-import { ReviewsType } from '../../types/types';
+import { useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { store } from '../../store/index';
+import { setCurrentOfferReviewsAction } from '../../store/actions';
+import { fetchOfferReviwsAction } from '../../store/api-actions';
 
 type ReviewsProps = {
-  reviews: ReviewsType;
+  hotelId: number;
 };
 
-function ListReviews({ reviews }: ReviewsProps) {
+function ListReviews({ hotelId }: ReviewsProps): JSX.Element {
+  useEffect(() => {
+    store.dispatch(fetchOfferReviwsAction(hotelId));
+
+    return () => {
+      setCurrentOfferReviewsAction([]);
+    };
+  }, [hotelId]);
+
+  const reviews = useAppSelector((state) => state.currentOfferReviews);
+
   return (
     <>
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>

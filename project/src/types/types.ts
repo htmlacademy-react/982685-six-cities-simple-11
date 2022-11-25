@@ -2,7 +2,7 @@
  * Enumerations
  */
 
-export const enum AppRoute {
+export enum AppRoute {
   Root = '/',
   Login = '/login',
   Offer = '/offer',
@@ -10,7 +10,7 @@ export const enum AppRoute {
 
 export enum APIRoute {
   Offers = '/hotels',
-  Reviews = '/comments/',
+  Reviews = '/comments',
   Login = '/login',
   Logout = '/logout',
 }
@@ -21,14 +21,14 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const enum HousingType {
+export enum HousingType {
   Apartment = 'Apartment',
   Room = 'Private Room',
   House = 'House',
   Hotel = 'Hotel',
 }
 
-export const enum CityName {
+export enum CityName {
   Paris = 'Paris',
   Cologne = 'Cologne',
   Brussels = 'Brussels',
@@ -98,7 +98,7 @@ export type Offer = {
   price: number;
   rating: number;
   title: string;
-  type: string;
+  type: HousingType;
   description: string;
 };
 

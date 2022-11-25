@@ -1,33 +1,23 @@
-import { MouseEventHandler, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import Logo from '../../components/logo/logo';
+import { useAppSelector } from '../../hooks';
 import ListCities from '../../components/list-cities/list-cities';
 import ListOffers from '../../components/list-offers/list-offers';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import Map from '../../components/map/map';
-import MainEmpty from '../main-empty/main-empty';
-import { logoutAction } from '../../store/api-actions';
+import MainEmpty from '../../components/main-empty/main-empty';
 import { BlockPlaces, Leaflet } from '../../const';
 import { getOffersByCity } from '../../utils/utils';
 import sortOffers from '../../utils/sort-offers';
-import { AppRoute, AuthorizationStatus } from '../../types/types';
 
 function Main(): JSX.Element {
   const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(undefined);
   const handleMouseEnterOffer = (offerId: number) => setSelectedOfferId(offerId);
   const handleMouseLeaveOffer = () => setSelectedOfferId(undefined);
 
-  const dispatch = useAppDispatch();
   const currentCity = useAppSelector((state) => state.city);
   const allOffers = useAppSelector((state) => state.offers);
   const sortOptionOffers = useAppSelector((state) => state.sortOptionOffers);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-
-  const handleLogoutClick: MouseEventHandler<HTMLAnchorElement> = (): void => {
-    dispatch(logoutAction());
-  };
 
   const cityOffers = getOffersByCity(allOffers, currentCity);
   const numberOffers = cityOffers.length;
@@ -38,40 +28,6 @@ function Main(): JSX.Element {
       <Helmet>
         <title>Six cities simple: Main</title>
       </Helmet>
-
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <Logo />
-            <nav className="header__nav">
-              {authorizationStatus === AuthorizationStatus.Auth ? (
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <div className="header__nav-profile">
-                      <div className="header__avatar-wrapper user__avatar-wrapper" />
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    </div>
-                  </li>
-                  <li className="header__nav-item">
-                    <Link className="header__nav-link" to={AppRoute.Root} onClick={handleLogoutClick}>
-                      <span className="header__signout">Sign out</span>
-                    </Link>
-                  </li>
-                </ul>
-              ) : (
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
-                      <div className="header__avatar-wrapper user__avatar-wrapper" />
-                      <span className="header__login">Sign in</span>
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </nav>
-          </div>
-        </div>
-      </header>
 
       <main className={`page__main page__main--index${isOffers ? '' : ' page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
@@ -102,7 +58,7 @@ function Main(): JSX.Element {
                 </section>
               </div>
             </div>
-          ) : <MainEmpty city={currentCity} />}
+          ) : <MainEmpty cityName={currentCity.name} />}
         </div>
       </main>
     </div>
