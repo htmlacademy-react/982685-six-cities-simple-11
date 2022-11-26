@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
 import ListCities from '../../components/list-cities/list-cities';
@@ -6,18 +5,15 @@ import ListOffers from '../../components/list-offers/list-offers';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import Map from '../../components/map/map';
 import MainEmpty from '../../components/main-empty/main-empty';
-import { BlockPlaces, Leaflet } from '../../const';
+import { BlockPlaces } from '../../const';
 import { getOffersByCity } from '../../utils/utils';
 import sortOffers from '../../utils/sort-offers';
 
 function Main(): JSX.Element {
-  const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(undefined);
-  const handleMouseEnterOffer = (offerId: number) => setSelectedOfferId(offerId);
-  const handleMouseLeaveOffer = () => setSelectedOfferId(undefined);
-
   const currentCity = useAppSelector((state) => state.city);
   const allOffers = useAppSelector((state) => state.offers);
   const sortOptionOffers = useAppSelector((state) => state.sortOptionOffers);
+  const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
 
   const cityOffers = getOffersByCity(allOffers, currentCity);
   const numberOffers = cityOffers.length;
@@ -43,22 +39,14 @@ function Main(): JSX.Element {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{numberOffers} places to stay in {currentCity.name}</b>
                 <SortingOptions />
-                <div className="cities__places-list places__list tabs__content">
-                  <ListOffers
-                    block={BlockPlaces.Cities}
-                    offers={sortOffers(cityOffers, sortOptionOffers)}
-                    handleMouseEnterOffer={handleMouseEnterOffer}
-                    handleMouseLeaveOffer={handleMouseLeaveOffer}
-                  />
-                </div>
+                <ListOffers block={BlockPlaces.Cities} offers={sortOffers(cityOffers, sortOptionOffers)} />
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map">
-                  <Map heightMap={Leaflet.HeightMap.Main} city={currentCity} offers={cityOffers} selectedOfferId={selectedOfferId}/>
-                </section>
+                <Map classlist={'cities__map map'} city={currentCity} offers={cityOffers} selectedOfferId={selectedOfferId}/>
               </div>
             </div>
-          ) : <MainEmpty cityName={currentCity.name} />}
+          ) :
+            <MainEmpty cityName={currentCity.name} />}
         </div>
       </main>
     </div>

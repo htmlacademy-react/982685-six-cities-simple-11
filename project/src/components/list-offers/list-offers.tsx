@@ -1,30 +1,42 @@
+import { useEffect, useState } from 'react';
 import OfferCard from '../offer-card/offer-card';
+import { store } from '../../store';
+import { setSelectedOfferIdAction } from '../../store/actions';
 import { Offer, Offers } from '../../types/types';
+import { BlockPlaces } from '../../const';
 
 type ListOffersProps = {
   block: string;
   offers: Offers;
-  handleMouseEnterOffer: (offerId: number) => void;
-  handleMouseLeaveOffer: () => void;
 };
 
-function ListOffers({ block, offers, handleMouseEnterOffer, handleMouseLeaveOffer }: ListOffersProps): JSX.Element {
+function ListOffers({ block, offers }: ListOffersProps): JSX.Element {
+  const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(undefined);
+  const onCardHover = (id: number | undefined): void => setSelectedOfferId(id);
+
+  useEffect(() => {
+    store.dispatch(setSelectedOfferIdAction(selectedOfferId));
+
+    return () => {
+      store.dispatch(setSelectedOfferIdAction(undefined));
+    };
+  }, [selectedOfferId]);
+
+  const classList = (block === BlockPlaces.Cities) ?
+    'cities__places-list places__list tabs__content' :
+    'near-places__list places__list';
+
   return (
-    <>
-      { offers.map((offer: Offer) => (
-        <article
-          className={`${block}__card place-card`}
-          onMouseEnter={() => handleMouseEnterOffer(offer.id)}
-          onMouseLeave={() => handleMouseLeaveOffer()}
+    <div className={classList}>
+      {offers.map((offer: Offer) => (
+        <OfferCard
           key={offer.id}
-        >
-          <OfferCard
-            block={block}
-            offer={offer}
-          />
-        </article>
+          block={block}
+          offer={offer}
+          onOfferCardHover={onCardHover}
+        />
       ))}
-    </>
+    </div>
   );
 }
 
