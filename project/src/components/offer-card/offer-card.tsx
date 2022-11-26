@@ -1,6 +1,7 @@
 import { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute, Offer } from '../../types/types';
+import { AppRoute } from '../../const';
+import { Offer } from '../../types/offers';
 import { getWidthRating } from '../../utils/utils';
 
 type OfferCardProps = {

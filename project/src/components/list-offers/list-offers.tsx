@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import OfferCard from '../offer-card/offer-card';
 import { store } from '../../store';
 import { setSelectedOfferIdAction } from '../../store/actions';
-import { Offer, Offers } from '../../types/types';
+import { Offer, Offers } from '../../types/offers';
 import { BlockPlaces } from '../../const';
 
 type ListOffersProps = {

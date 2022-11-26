@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { Icon, LayerGroup, Marker } from 'leaflet';
 import useMap from '../../hooks/useMap';
-import { City, Offers } from '../../types/types';
+import { City, Offers } from '../../types/offers';
 import { Leaflet } from '../../const';
 import 'leaflet/dist/leaflet.css';
 

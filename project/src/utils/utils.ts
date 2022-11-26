@@ -1,5 +1,5 @@
 import { Rating } from '../const';
-import { City, Offers } from '../types/types';
+import { City, Offers } from '../types/offers';
 
 /**
  * Calculates the width of block 'rating__star'

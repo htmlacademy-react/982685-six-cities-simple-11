@@ -4,8 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { AppRoute, AuthorizationStatus } from '../../types/types';
-import { INITIAL_CITY } from '../../const';
+import { AppRoute, AuthorizationStatus, InitialCity } from '../../const';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -79,7 +78,7 @@ function Login(): JSX.Element {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link className="locations__item-link" to={AppRoute.Root}>
-                <span>{INITIAL_CITY.name}</span>
+                <span>{InitialCity.name}</span>
               </Link>
             </div>
           </section>

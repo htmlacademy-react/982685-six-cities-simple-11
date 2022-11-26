@@ -9,9 +9,8 @@ import NotFound from '../not-found/not-found';
 import { useAppSelector } from '../../hooks';
 import { fetchOfferAction, fetchNearbyOffersAction } from '../../store/api-actions';
 import { store } from '../../store/index';
-import { AuthorizationStatus } from '../../types/types';
 import { setCurrentOfferAction, setNearbyOffersAction } from '../../store/actions';
-import { BlockPlaces } from '../../const';
+import { AuthorizationStatus, BlockPlaces } from '../../const';
 import { getWidthRating } from '../../utils/utils';
 
 function Property(): JSX.Element {

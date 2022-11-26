@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
-import { NewReview } from '../../types/types';
-import { Rating, Review } from '../../const';
+import { NewReview } from '../../types/offers';
+import { Rating, Ratings, Review } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { fetchSendCommentAction } from '../../store/api-actions';
 
@@ -20,29 +20,6 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
     setReview({ comment: '', rating: Rating.Undefined });
   };
 
-  const ratings: {value: number; title: string }[] = [
-    {
-      value: 5,
-      title: 'perfect',
-    },
-    {
-      value: 4,
-      title: 'good',
-    },
-    {
-      value: 3,
-      title: 'not bad',
-    },
-    {
-      value: 2,
-      title: 'badly',
-    },
-    {
-      value: 1,
-      title: 'terribly',
-    },
-  ];
-
   return (
     <form
       className="reviews__form form"
@@ -56,7 +33,7 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
-          ratings.map(({ value, title }) => {
+          Ratings.map(({ value, title }) => {
             const id = `${value}-stars`;
             return (
               <Fragment key={id}>

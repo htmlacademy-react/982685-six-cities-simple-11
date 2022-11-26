@@ -1,9 +1,9 @@
 import { MouseEvent } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
-import { AppRoute, AuthorizationStatus } from '../../types/types';
 
 function Layout(): JSX.Element {
   const dispatch = useAppDispatch();

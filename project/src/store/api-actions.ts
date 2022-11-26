@@ -1,4 +1,3 @@
-import { ReviewsType } from './../types/types';
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
@@ -12,15 +11,9 @@ import {
 } from './actions';
 import { dropToken, saveToken } from '../services/token';
 import { AppDispatch, State } from '../types/state';
-import {
-  APIRoute,
-  AppRoute,
-  AuthData,
-  AuthorizationStatus,
-  Offer,
-  Offers,
-  UserData,
-} from '../types/types';
+import { Offer, Offers, ReviewsType }from '../types/offers';
+import { AuthData, UserData } from '../types/user';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 
 export const fetchOffersAction = createAsyncThunk<
   void,

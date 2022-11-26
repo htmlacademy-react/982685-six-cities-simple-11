@@ -2,8 +2,8 @@ import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { changeCityAction } from '../../store/actions';
-import { City, CityName, AppRoute } from '../../types/types';
-import { cities } from '../../const';
+import { City } from '../../types/offers';
+import { AppRoute, CitiesList, CityName } from '../../const';
 
 type ListCitiesProps = {
   currentCity: City;
@@ -17,14 +17,14 @@ const ListCities = ({ currentCity }: ListCitiesProps): JSX.Element => {
     const selectedCityName = evt.currentTarget.textContent as CityName;
 
     if (selectedCityName !== currentCity.name) {
-      const selectedCity = cities.find(({ name }) => name === selectedCityName) as City;
+      const selectedCity = CitiesList.find(({ name }) => name === selectedCityName) as City;
       dispatch(changeCityAction(selectedCity));
     }
   };
 
   return (
     <ul className="locations__list tabs__list">
-      {cities.map(({ name }) => (
+      {CitiesList.map(({ name }) => (
         <li className="locations__item" key={name}>
           <Link
             className={`locations__item-link tabs__item${name === currentCity.name ? ' tabs__item--active' : ''}`}

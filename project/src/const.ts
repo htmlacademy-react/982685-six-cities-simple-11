@@ -1,7 +1,15 @@
-import { Cities, CityName} from './types/types';
+import { Cities } from './types/offers';
 
-// City names
-export const cities: Cities = [
+export enum CityName {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
+export const CitiesList: Cities = [
   {
     location: {
       latitude: 48.864716,
@@ -52,9 +60,47 @@ export const cities: Cities = [
   },
 ];
 
-export const INITIAL_CITY = cities[0];
+export const InitialCity = CitiesList[0];
 
-// Names block for place cards
+export enum AppRoute {
+  Root = '/',
+  Login = '/login',
+  Offer = '/offer',
+}
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Reviews = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export enum NameSpace {
+  Data = 'DATA',
+  User = 'USER',
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+export enum HousingType {
+  Apartment = 'Apartment',
+  Room = 'Private Room',
+  House = 'House',
+  Hotel = 'Hotel',
+}
+
+export enum SortTypes {
+  Popular = 'Popular',
+  PriceToHigh = 'Price: low to high',
+  PriceToLow = 'Price: high to low',
+  TopRated = 'Top rated first',
+}
+
+// Names block for offers cards
 export const BlockPlaces = {
   Cities: 'cities',
   NearPlaces: 'near-places',
@@ -67,6 +113,29 @@ export const Rating = {
   MaxStars: 5,
 } as const;
 
+export const Ratings: { value: number; title: string }[] = [
+  {
+    value: 5,
+    title: 'perfect',
+  },
+  {
+    value: 4,
+    title: 'good',
+  },
+  {
+    value: 3,
+    title: 'not bad',
+  },
+  {
+    value: 2,
+    title: 'badly',
+  },
+  {
+    value: 1,
+    title: 'terribly',
+  },
+];
+
 // Review
 export const Review = {
   MinLength: 50,
@@ -75,8 +144,10 @@ export const Review = {
 
 // Leaflet Map
 export const Leaflet = {
-  MapUrl: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-  Attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  MapUrl:
+    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  Attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
   Marker: {
     DefaultUrl: 'img/pin.svg',
     ActiveUrl: 'img/pin-active.svg',

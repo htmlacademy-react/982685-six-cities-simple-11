@@ -1,4 +1,5 @@
-import { Offer, Offers, SortTypes } from './../types/types';
+import { Offer, Offers } from './../types/offers';
+import { SortTypes } from '../const';
 
 const sortPriceLowToHigh = (offer1: Offer, offer2: Offer): number =>
   Math.sign(offer1.price - offer2.price);

@@ -1,52 +1,5 @@
-/*
- * Enumerations
- */
+import { CityName, HousingType } from '../const';
 
-export enum AppRoute {
-  Root = '/',
-  Login = '/login',
-  Offer = '/offer',
-}
-
-export enum APIRoute {
-  Offers = '/hotels',
-  Reviews = '/comments',
-  Login = '/login',
-  Logout = '/logout',
-}
-
-export enum AuthorizationStatus {
-  Auth = 'AUTH',
-  NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
-}
-
-export enum HousingType {
-  Apartment = 'Apartment',
-  Room = 'Private Room',
-  House = 'House',
-  Hotel = 'Hotel',
-}
-
-export enum CityName {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf'
-}
-
-export enum SortTypes {
-  Popular = 'Popular',
-  PriceToHigh = 'Price: low to high',
-  PriceToLow = 'Price: high to low',
-  TopRated = 'Top rated first'
-}
-
-/*
- * Types
- */
 export type Location = {
   latitude: number;
   longitude: number;
@@ -62,26 +15,11 @@ export type City = {
 
 export type Cities = City[];
 
-export type User = {
+export type Hoster = {
   id: number;
   name: string;
   isPro: boolean;
   avatarUrl: string;
-  email: string;
-  token: string;
-};
-
-export type Hoster = Omit<User, 'email' | 'token'>;
-
-export type AuthData = {
-  login: string;
-  password: string;
-};
-
-export type UserData = {
-  id: number;
-  email: string;
-  token: string;
 };
 
 export type Offer = {

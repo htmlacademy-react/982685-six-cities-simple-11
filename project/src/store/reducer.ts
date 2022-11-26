@@ -11,14 +11,12 @@ import {
   setSelectedOfferIdAction,
 } from './actions';
 import {
-  AuthorizationStatus,
   City,
   Offer,
   Offers,
-  SortTypes,
   ReviewsType,
-} from './../types/types';
-import { INITIAL_CITY } from '../const';
+} from './../types/offers';
+import { AuthorizationStatus, InitialCity, SortTypes } from '../const';
 
 type State = {
   city: City;
@@ -33,7 +31,7 @@ type State = {
 };
 
 const initialState: State = {
-  city: INITIAL_CITY,
+  city: InitialCity,
   offers: [],
   selectedOfferId: undefined,
   currentOffer: undefined,
