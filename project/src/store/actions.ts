@@ -5,6 +5,8 @@ export const changeCityAction = createAction<City>('data/changeCity');
 
 export const setOffersAction = createAction<Offers>('data/setOffers');
 
+export const setSelectedOfferIdAction = createAction<number | undefined>('data/setSelectedOfferId');
+
 export const setCurrentOfferAction = createAction<Offer | undefined>('data/setOfferById');
 
 export const setCurrentOfferReviewsAction = createAction<ReviewsType>('data/setReviews');

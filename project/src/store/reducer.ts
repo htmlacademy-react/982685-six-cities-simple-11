@@ -8,6 +8,7 @@ import {
   setCurrentOfferAction,
   setCurrentOfferReviewsAction,
   setNearbyOffersAction,
+  setSelectedOfferIdAction,
 } from './actions';
 import {
   AuthorizationStatus,
@@ -22,6 +23,7 @@ import { INITIAL_CITY } from '../const';
 type State = {
   city: City;
   offers: Offers;
+  selectedOfferId: number | undefined;
   currentOffer: Offer | undefined;
   currentOfferReviews: ReviewsType;
   nearbyOffers: Offers;
@@ -33,6 +35,7 @@ type State = {
 const initialState: State = {
   city: INITIAL_CITY,
   offers: [],
+  selectedOfferId: undefined,
   currentOffer: undefined,
   currentOfferReviews: [],
   nearbyOffers: [],
@@ -48,6 +51,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersAction, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(setSelectedOfferIdAction, (state, action) => {
+      state.selectedOfferId = action.payload;
     })
     .addCase(setCurrentOfferAction, (state, action) => {
       state.currentOffer = action.payload;
