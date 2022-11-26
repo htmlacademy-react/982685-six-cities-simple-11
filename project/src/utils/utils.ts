@@ -7,7 +7,7 @@ import { City, Offers } from '../types/types';
  * @returns {number} Width of block in percent.
  */
 export const getWidthRating = (rating: number): number =>
-  Math.round((100 / Rating.MaxStars) * rating);
+  (100 * Math.round(rating) / Rating.MaxStars);
 
 /**
  *
