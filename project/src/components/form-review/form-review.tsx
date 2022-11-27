@@ -13,10 +13,14 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
     rating: Rating.Undefined,
   });
 
+  const [isSendReview, setSendReview] = useState<boolean>(false);
+
   const dispatch = useAppDispatch();
 
   const handleSubmit = async () => {
+    setSendReview(true);
     await dispatch(fetchSendCommentAction({ id: hotelId, comment: review.comment, rating: review.rating }));
+    setSendReview(false);
     setReview({ comment: '', rating: Rating.Undefined });
   };
 
@@ -79,7 +83,8 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
           disabled={
             review.rating === Rating.Undefined ||
             review.comment.length < Review.MinLength ||
-            review.comment.length >= Review.MaxLength
+            review.comment.length >= Review.MaxLength ||
+            isSendReview
           }
         >
           Submit

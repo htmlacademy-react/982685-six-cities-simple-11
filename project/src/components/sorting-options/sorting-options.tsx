@@ -1,17 +1,18 @@
 import { MouseEventHandler, useState } from 'react';
-import { setSortOptionOffersAction } from '../../store/actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { SortTypes } from '../../const';
+import { getSortOptionOffers } from '../../store/offer-process/selectors';
+import { setSortOptionOffers } from '../../store/offer-process/offer-process';
 
 function SortingOptions(): JSX.Element {
   const [isOpenedSelect, setStateSelect] = useState(false);
 
-  const activeSort = useAppSelector((state) => state.sortOptionOffers);
+  const activeSort = useAppSelector(getSortOptionOffers);
   const dispatch = useAppDispatch();
 
-  const changeSortOption = (selectedOption: SortTypes): void => {
+  const changeSortOption = (selectedOption: SortTypes) => {
     if (selectedOption !== activeSort) {
-      dispatch(setSortOptionOffersAction(selectedOption));
+      dispatch(setSortOptionOffers({sortOptionOffers: selectedOption}));
     }
     setStateSelect(false); // Close pseudo-select
   };

@@ -5,35 +5,31 @@ import ListReviews from '../../components/list-reviews/list-reviews';
 import FormReview from '../../components/form-review/form-review';
 import Map from '../../components/map/map';
 import ListOffers from '../../components/list-offers/list-offers';
-import NotFound from '../not-found/not-found';
+import Spinner from '../../components/spinner/spinner';
 import { useAppSelector } from '../../hooks';
 import { fetchOfferAction, fetchNearbyOffersAction } from '../../store/api-actions';
 import { store } from '../../store/index';
-import { setCurrentOfferAction, setNearbyOffersAction } from '../../store/actions';
 import { AuthorizationStatus, BlockPlaces } from '../../const';
 import { getWidthRating } from '../../utils/utils';
+import { getCurrentOffer, getNearbyOffers } from '../../store/offer-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function Property(): JSX.Element {
   const { id } = useParams();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     const hotelId = Number(id);
     store.dispatch(fetchOfferAction(hotelId));
     store.dispatch(fetchNearbyOffersAction(hotelId));
-
-    return () => {
-      setCurrentOfferAction(undefined);
-      setNearbyOffersAction([]);
-    };
   }, [id]);
 
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const currentOffer = useAppSelector(getCurrentOffer);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
 
   if (!currentOffer) {
     return (
-      <NotFound />
+      <Spinner />
     );
   }
 
@@ -117,7 +113,12 @@ function Property(): JSX.Element {
               </section>
             </div>
           </div>
-          <Map classlist={'property__map map'} city={currentOffer.city} offers={nearbyOffers} />
+          <Map
+            classlist={'property__map map'}
+            city={currentOffer.city}
+            offers={[...nearbyOffers, currentOffer]}
+            selectedOfferId={currentOffer.id}
+          />
         </section>
         <div className="container">
           <section className="near-places places">

@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react';
+import { memo, MouseEventHandler, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offers';
@@ -13,8 +13,8 @@ type OfferCardProps = {
 function OfferCard({ block, offer, onOfferCardHover }: OfferCardProps): JSX.Element {
   const { id, isPremium, previewImage, price, rating, title, type } = offer;
 
-  const handleMouseEnter: MouseEventHandler<HTMLElement> = (): void => onOfferCardHover?.(id);
-  const handleMouseLeave: MouseEventHandler<HTMLElement> = (): void => onOfferCardHover?.(undefined);
+  const handleMouseEnter: MouseEventHandler<HTMLElement> = useCallback((): void => onOfferCardHover?.(id), [id, onOfferCardHover]);
+  const handleMouseLeave: MouseEventHandler<HTMLElement> = useCallback((): void => onOfferCardHover?.(undefined), [onOfferCardHover]);
 
   return (
     <article
@@ -53,4 +53,4 @@ function OfferCard({ block, offer, onOfferCardHover }: OfferCardProps): JSX.Elem
   );
 }
 
-export default OfferCard;
+export default memo(OfferCard);

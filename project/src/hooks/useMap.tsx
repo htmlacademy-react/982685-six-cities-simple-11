@@ -17,7 +17,7 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
         zoom: city.location.zoom,
       });
 
-      const layer = new TileLayer(Leaflet.MapUrl, { attribution: Leaflet.Attribution });
+      const layer = new TileLayer(Leaflet.MapUrl, { attribution: Leaflet.Attribution, detectRetina: true });
       instance.addLayer(layer);
 
       setMap(instance);

@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import OfferCard from '../offer-card/offer-card';
-import { store } from '../../store';
-import { setSelectedOfferIdAction } from '../../store/actions';
 import { Offer, Offers } from '../../types/offers';
 import { BlockPlaces } from '../../const';
+import { store } from '../../store';
+import { setSelectedOfferId } from '../../store/offer-process/offer-process';
 
 type ListOffersProps = {
   block: string;
@@ -11,16 +11,16 @@ type ListOffersProps = {
 };
 
 function ListOffers({ block, offers }: ListOffersProps): JSX.Element {
-  const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(undefined);
-  const onCardHover = (id: number | undefined): void => setSelectedOfferId(id);
+  const [selectedOffer, setSelectedOffer] = useState<number | undefined>(undefined);
+  const onCardHover = useCallback((id: number | undefined): void => setSelectedOffer(id), []);
 
   useEffect(() => {
-    store.dispatch(setSelectedOfferIdAction(selectedOfferId));
+    store.dispatch(setSelectedOfferId(selectedOffer));
 
     return () => {
-      store.dispatch(setSelectedOfferIdAction(undefined));
+      store.dispatch(setSelectedOfferId(undefined));
     };
-  }, [selectedOfferId]);
+  }, [selectedOffer]);
 
   const classList = (block === BlockPlaces.Cities) ?
     'cities__places-list places__list tabs__content' :

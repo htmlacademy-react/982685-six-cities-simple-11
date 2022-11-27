@@ -7,13 +7,15 @@ import Map from '../../components/map/map';
 import MainEmpty from '../../components/main-empty/main-empty';
 import { BlockPlaces } from '../../const';
 import { getOffersByCity } from '../../utils/utils';
+import { getOffers } from '../../store/offer-data/selectors';
+import { getCity, getsetSelectedOfferId, getSortOptionOffers} from '../../store/offer-process/selectors';
 import sortOffers from '../../utils/sort-offers';
 
 function Main(): JSX.Element {
-  const currentCity = useAppSelector((state) => state.city);
-  const allOffers = useAppSelector((state) => state.offers);
-  const sortOptionOffers = useAppSelector((state) => state.sortOptionOffers);
-  const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
+  const currentCity = useAppSelector(getCity);
+  const allOffers = useAppSelector(getOffers);
+  const sortOptionOffers = useAppSelector(getSortOptionOffers);
+  const selectedOfferId = useAppSelector(getsetSelectedOfferId);
 
   const cityOffers = getOffersByCity(allOffers, currentCity);
   const numberOffers = cityOffers.length;

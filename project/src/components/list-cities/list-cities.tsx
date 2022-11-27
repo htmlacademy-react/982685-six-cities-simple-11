@@ -1,7 +1,7 @@
-import { MouseEvent } from 'react';
+import { memo, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeCityAction } from '../../store/actions';
+import { changeCity } from '../../store/offer-process/offer-process';
 import { City } from '../../types/offers';
 import { AppRoute, CitiesList, CityName } from '../../const';
 
@@ -18,7 +18,7 @@ const ListCities = ({ currentCity }: ListCitiesProps): JSX.Element => {
 
     if (selectedCityName !== currentCity.name) {
       const selectedCity = CitiesList.find(({ name }) => name === selectedCityName) as City;
-      dispatch(changeCityAction(selectedCity));
+      dispatch(changeCity(selectedCity));
     }
   };
 
@@ -39,4 +39,4 @@ const ListCities = ({ currentCity }: ListCitiesProps): JSX.Element => {
   );
 };
 
-export default ListCities;
+export default memo(ListCities);
