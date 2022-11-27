@@ -1,28 +1,38 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { OfferProcess } from '../../types/state';
-import { City } from '../../types/offers';
-import { SortTypes, NameSpace, InitialCity } from '../../const';
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchOffersAction, fetchOfferAction, fetchNearbyOffersAction } from '../api-actions';
+import { redirectToRoute } from '../actions';
+import { OfferData } from '../../types/state';
+import { AppRoute, NameSpace } from '../../const';
 
-const initialState: OfferProcess = {
-  city: InitialCity,
-  sortOptionOffers: SortTypes.Popular,
-  selectedOfferId: undefined,
+const initialState: OfferData = {
+  offers: [],
+  currentOffer: undefined,
+  nearbyOffers: [],
+  isDataLoading: false,
+  hasError: false,
 };
 
-export const offerProcess = createSlice({
-  name: NameSpace.Offer,
+export const offerData = createSlice({
+  name: NameSpace.Data,
   initialState,
-  reducers: {
-    changeCity: (state, action: PayloadAction<City>) => {
-      state.city = action.payload;
-    },
-    setSortOptionOffers: (state, action: PayloadAction<{sortOptionOffers: SortTypes}>) => {
-      state.sortOptionOffers = action.payload.sortOptionOffers;
-    },
-    setSelectedOfferId: (state, action: PayloadAction<number | undefined>) => {
-      state.selectedOfferId = action.payload;
-    },
-  },
+  reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(fetchOffersAction.pending, (state) => {
+        state.isDataLoading = true;
+      })
+      .addCase(fetchOffersAction.fulfilled, (state, action) => {
+        state.offers = action.payload;
+        state.isDataLoading = false;
+      })
+      .addCase(fetchOfferAction.fulfilled, (state, action) => {
+        state.currentOffer = action.payload;
+      })
+      .addCase(fetchOfferAction.rejected, (state) => {
+        redirectToRoute(AppRoute.Root);
+      })
+      .addCase(fetchNearbyOffersAction.fulfilled, (state, action) => {
+        state.nearbyOffers = action.payload;
+      });
+  }
 });
-
-export const { changeCity, setSortOptionOffers, setSelectedOfferId } = offerProcess.actions;
