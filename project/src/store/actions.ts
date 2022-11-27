@@ -1,23 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { City, Offers, ReviewsType, Offer } from './../types/offers';
-import { AppRoute, AuthorizationStatus, SortTypes } from '../const';
-
-export const changeCityAction = createAction<City>('data/changeCity');
-
-export const setOffersAction = createAction<Offers>('data/setOffers');
-
-export const setSelectedOfferIdAction = createAction<number | undefined>('data/setSelectedOfferId');
-
-export const setCurrentOfferAction = createAction<Offer | undefined>('data/setOfferById');
-
-export const setCurrentOfferReviewsAction = createAction<ReviewsType>('data/setReviews');
-
-export const setNearbyOffersAction = createAction<Offers>('data/setNearbyOffers');
-
-export const setSortOptionOffersAction = createAction<SortTypes>('data/setSortOptionOffers');
-
-export const setDataLoadingStatusAction = createAction<boolean>('data/setDataLoadingStatus');
+import { AppRoute } from '../const';
 
 export const redirectToRoute = createAction<AppRoute>('data/redirectToRoute');
-
-export const requireAuthorizationAction = createAction<AuthorizationStatus>('user/requireAuthorization');
