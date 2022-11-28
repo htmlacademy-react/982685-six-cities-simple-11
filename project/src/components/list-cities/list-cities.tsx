@@ -18,7 +18,7 @@ const ListCities = (): JSX.Element => {
       const selectedCity = CitiesList.find(({ name }) => name === selectedCityName) as City;
       dispatch(changeCity(selectedCity));
     }
-  },[]);
+  }, [currentCity.name, dispatch]);
 
   return (
     <ul className="locations__list tabs__list">
