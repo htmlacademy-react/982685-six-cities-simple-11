@@ -4,8 +4,9 @@ import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { AppRoute, AuthorizationStatus } from '../../types/types';
-import { INITIAL_CITY } from '../../const';
+import { AppRoute, AuthorizationStatus, InitialCity } from '../../const';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { isValidEmail, isValidPassword } from '../../utils/utils';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -13,7 +14,7 @@ function Login(): JSX.Element {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -24,7 +25,8 @@ function Login(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (loginRef.current !== null && passwordRef.current !== null &&
+      isValidEmail(loginRef.current.value) && isValidPassword(passwordRef.current.value)) {
       dispatch(loginAction({
         login: loginRef.current.value,
         password: passwordRef.current.value,
@@ -79,7 +81,7 @@ function Login(): JSX.Element {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link className="locations__item-link" to={AppRoute.Root}>
-                <span>{INITIAL_CITY.name}</span>
+                <span>{InitialCity.name}</span>
               </Link>
             </div>
           </section>

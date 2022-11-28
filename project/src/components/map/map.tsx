@@ -1,16 +1,11 @@
 import { useRef, useEffect } from 'react';
 import { Icon, LayerGroup, Marker } from 'leaflet';
 import useMap from '../../hooks/useMap';
-import { City, Offers } from '../../types/types';
+import { useAppSelector } from '../../hooks';
+import { getCity } from '../../store/app-process/selectors';
+import { Offers } from '../../types/offers';
 import { Leaflet } from '../../const';
 import 'leaflet/dist/leaflet.css';
-
-type MapProps = {
-  heightMap: string;
-  city: City;
-  offers: Offers;
-  selectedOfferId?: number;
-};
 
 const defaultCustomIcon = new Icon({
   iconUrl: Leaflet.Marker.DefaultUrl,
@@ -24,7 +19,14 @@ const activeCustomIcon = new Icon({
   iconAnchor: [Leaflet.Marker.IconWidth / 2, Leaflet.Marker.IconHegth],
 });
 
-function Map({ heightMap, city, offers, selectedOfferId = undefined }: MapProps): JSX.Element {
+type MapProps = {
+  classlist: string;
+  offers: Offers;
+  selectedOfferId?: number;
+};
+
+function Map({ classlist, offers, selectedOfferId = undefined }: MapProps): JSX.Element {
+  const city = useAppSelector(getCity);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -48,7 +50,11 @@ function Map({ heightMap, city, offers, selectedOfferId = undefined }: MapProps)
     };
   }, [map, offers, city, selectedOfferId]);
 
-  return <div style={{ height: heightMap }} ref={mapRef}></div>;
+  return (
+    <section className={classlist}>
+      <div style={{ height: '100%' }} ref={mapRef} />
+    </section>
+  );
 }
 
 export default Map;

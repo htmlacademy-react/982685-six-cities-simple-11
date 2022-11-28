@@ -1,30 +1,28 @@
-import { MouseEvent } from 'react';
+import { memo, MouseEvent, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
-import { changeCityAction } from '../../store/actions';
-import { City, CityName, AppRoute } from '../../types/types';
-import { cities } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeCity } from '../../store/app-process/app-process';
+import { getCity } from '../../store/app-process/selectors';
+import { City } from '../../types/offers';
+import { AppRoute, CitiesList, CityName } from '../../const';
 
-type ListCitiesProps = {
-  currentCity: City;
-}
-
-const ListCities = ({ currentCity }: ListCitiesProps): JSX.Element => {
+const ListCities = (): JSX.Element => {
   const dispatch = useAppDispatch();
+  const currentCity = useAppSelector(getCity);
 
-  const handleCityClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+  const handleCityClick = useCallback((evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     const selectedCityName = evt.currentTarget.textContent as CityName;
 
     if (selectedCityName !== currentCity.name) {
-      const selectedCity = cities.find(({ name }) => name === selectedCityName) as City;
-      dispatch(changeCityAction(selectedCity));
+      const selectedCity = CitiesList.find(({ name }) => name === selectedCityName) as City;
+      dispatch(changeCity(selectedCity));
     }
-  };
+  },[]);
 
   return (
     <ul className="locations__list tabs__list">
-      {cities.map(({ name }) => (
+      {CitiesList.map(({ name }) => (
         <li className="locations__item" key={name}>
           <Link
             className={`locations__item-link tabs__item${name === currentCity.name ? ' tabs__item--active' : ''}`}
@@ -39,4 +37,4 @@ const ListCities = ({ currentCity }: ListCitiesProps): JSX.Element => {
   );
 };
 
-export default ListCities;
+export default memo(ListCities);

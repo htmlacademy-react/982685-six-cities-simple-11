@@ -1,5 +1,4 @@
 import { Rating } from '../const';
-import { City, Offers } from '../types/types';
 
 /**
  * Calculates the width of block 'rating__star'
@@ -7,13 +6,24 @@ import { City, Offers } from '../types/types';
  * @returns {number} Width of block in percent.
  */
 export const getWidthRating = (rating: number): number =>
-  Math.round((100 / Rating.MaxStars) * rating);
+  (100 * Math.round(rating) / Rating.MaxStars);
 
 /**
- *
- * @param {Offers} offers - All offers
- * @param {City} city - The city to be searched
- * @returns {Offers} Filtred list of offers by city
+ * Checks the e-mail for correctness
+ * @param email - Checkable e-mail
+ * @returns True, if the e-mail you are checking is correct
  */
-export const getOffersByCity = (offers: Offers, city: City): Offers =>
-  offers.filter((offer) => offer.city.name === city.name);
+export const isValidEmail = (email: string): boolean => {
+  const re = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/, 'i');
+  return re.test(email);
+};
+
+/**
+ * Checks the password for correctness
+ * @param password - Checkable password
+ * @returns True, if the password you are checking is correct
+ */
+export const isValidPassword = (password: string): boolean => {
+  const re = new RegExp(/([0-9].*[a-z])|([a-z].*[0-9])/, 'i');
+  return re.test(password);
+};

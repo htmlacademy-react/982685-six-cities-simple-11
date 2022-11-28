@@ -1,17 +1,27 @@
+import { memo, MouseEventHandler, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute, Offer } from '../../types/types';
+import { AppRoute } from '../../const';
+import { Offer } from '../../types/offers';
 import { getWidthRating } from '../../utils/utils';
 
 type OfferCardProps = {
   block: string;
   offer: Offer;
+  onOfferCardHover?: (id: number | undefined) => void;
 };
 
-function OfferCard({ block, offer }: OfferCardProps): JSX.Element {
+function OfferCard({ block, offer, onOfferCardHover }: OfferCardProps): JSX.Element {
   const { id, isPremium, previewImage, price, rating, title, type } = offer;
 
+  const handleMouseEnter: MouseEventHandler<HTMLElement> = useCallback((): void => onOfferCardHover?.(id), [id, onOfferCardHover]);
+  const handleMouseLeave: MouseEventHandler<HTMLElement> = useCallback((): void => onOfferCardHover?.(undefined), [onOfferCardHover]);
+
   return (
-    <>
+    <article
+      className={`${block}__card place-card`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
@@ -39,8 +49,8 @@ function OfferCard({ block, offer }: OfferCardProps): JSX.Element {
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
-    </>
+    </article>
   );
 }
 
-export default OfferCard;
+export default memo(OfferCard);

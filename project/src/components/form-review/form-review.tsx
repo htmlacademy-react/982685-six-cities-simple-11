@@ -1,8 +1,8 @@
 import { Fragment, useState } from 'react';
-import { NewReview } from '../../types/types';
-import { Rating, Review } from '../../const';
+import { NewReview } from '../../types/offers';
+import { Rating, Ratings, Review } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { fetchSendCommentAction } from '../../store/api-actions';
+import { fetchSendReviewAction } from '../../store/api-actions';
 
 type FormReviewProps = {
   hotelId: number;
@@ -13,35 +13,16 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
     rating: Rating.Undefined,
   });
 
+  const [isSendReview, setSendReview] = useState<boolean>(false);
+
   const dispatch = useAppDispatch();
 
   const handleSubmit = async () => {
-    await dispatch(fetchSendCommentAction({ id: hotelId, comment: review.comment, rating: review.rating }));
+    setSendReview(true);
+    await dispatch(fetchSendReviewAction({ id: hotelId, comment: review.comment, rating: review.rating }));
+    setSendReview(false);
     setReview({ comment: '', rating: Rating.Undefined });
   };
-
-  const ratings: {value: number; title: string }[] = [
-    {
-      value: 5,
-      title: 'perfect',
-    },
-    {
-      value: 4,
-      title: 'good',
-    },
-    {
-      value: 3,
-      title: 'not bad',
-    },
-    {
-      value: 2,
-      title: 'badly',
-    },
-    {
-      value: 1,
-      title: 'terribly',
-    },
-  ];
 
   return (
     <form
@@ -56,7 +37,7 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
-          ratings.map(({ value, title }) => {
+          Ratings.map(({ value, title }) => {
             const id = `${value}-stars`;
             return (
               <Fragment key={id}>
@@ -102,7 +83,8 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
           disabled={
             review.rating === Rating.Undefined ||
             review.comment.length < Review.MinLength ||
-            review.comment.length >= Review.MaxLength
+            review.comment.length >= Review.MaxLength ||
+            isSendReview
           }
         >
           Submit

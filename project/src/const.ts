@@ -1,12 +1,20 @@
-import { Cities, CityName} from './types/types';
+import { Cities } from './types/offers';
 
-// City names
-export const cities: Cities = [
+export enum CityName {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
+export const CitiesList: Cities = [
   {
     location: {
       latitude: 48.864716,
       longitude: 2.349014,
-      zoom: 10,
+      zoom: 13,
     },
     name: CityName.Paris,
   },
@@ -14,7 +22,7 @@ export const cities: Cities = [
     location: {
       latitude: 50.935173,
       longitude: 6.953101,
-      zoom: 10,
+      zoom: 13,
     },
     name: CityName.Cologne,
   },
@@ -22,7 +30,7 @@ export const cities: Cities = [
     location: {
       latitude: 50.8505,
       longitude: 4.3488,
-      zoom: 10,
+      zoom: 13,
     },
     name: CityName.Brussels,
   },
@@ -30,7 +38,7 @@ export const cities: Cities = [
     location: {
       latitude: 52.370216,
       longitude: 4.895168,
-      zoom: 10,
+      zoom: 13,
     },
     name: CityName.Amsterdam,
   },
@@ -38,7 +46,7 @@ export const cities: Cities = [
     location: {
       latitude: 53.551086,
       longitude: 9.993682,
-      zoom: 10,
+      zoom: 13,
     },
     name: CityName.Hamburg,
   },
@@ -46,15 +54,55 @@ export const cities: Cities = [
     location: {
       latitude: 51.233334,
       longitude: 6.783333,
-      zoom: 10,
+      zoom: 13,
     },
     name: CityName.Dusseldorf,
   },
 ];
 
-export const INITIAL_CITY = cities[0];
+export const InitialCity = CitiesList[0];
 
-// Names block for place cards
+export enum AppRoute {
+  Root = '/',
+  Login = '/login',
+  Offer = '/offer',
+}
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Reviews = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export enum NameSpace {
+  App = 'APP',
+  Offer = 'OFFER',
+  Review = 'REVIEW',
+  User = 'USER',
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
+export enum HousingType {
+  Apartment = 'Apartment',
+  Room = 'Private Room',
+  House = 'House',
+  Hotel = 'Hotel',
+}
+
+export enum SortType {
+  Popular = 'Popular',
+  PriceToHigh = 'Price: low to high',
+  PriceToLow = 'Price: high to low',
+  TopRated = 'Top rated first',
+}
+
+// Names block for offers cards
 export const BlockPlaces = {
   Cities: 'cities',
   NearPlaces: 'near-places',
@@ -67,6 +115,29 @@ export const Rating = {
   MaxStars: 5,
 } as const;
 
+export const Ratings: { value: number; title: string }[] = [
+  {
+    value: 5,
+    title: 'perfect',
+  },
+  {
+    value: 4,
+    title: 'good',
+  },
+  {
+    value: 3,
+    title: 'not bad',
+  },
+  {
+    value: 2,
+    title: 'badly',
+  },
+  {
+    value: 1,
+    title: 'terribly',
+  },
+];
+
 // Review
 export const Review = {
   MinLength: 50,
@@ -75,16 +146,14 @@ export const Review = {
 
 // Leaflet Map
 export const Leaflet = {
-  MapUrl: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-  Attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  MapUrl:
+    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  Attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
   Marker: {
     DefaultUrl: 'img/pin.svg',
     ActiveUrl: 'img/pin-active.svg',
     IconWidth: 27,
     IconHegth: 39,
-  },
-  HeightMap: {
-    Main: 'calc(100vh - 186px)',
-    Property: '579px',
   },
 } as const;
