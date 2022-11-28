@@ -2,34 +2,40 @@ import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ListReviews from '../../components/list-reviews/list-reviews';
-import FormReview from '../../components/form-review/form-review';
 import Map from '../../components/map/map';
 import ListOffers from '../../components/list-offers/list-offers';
 import Spinner from '../../components/spinner/spinner';
+import NotFound from '../not-found/not-found';
 import { useAppSelector } from '../../hooks';
-import { fetchOfferAction, fetchNearbyOffersAction } from '../../store/api-actions';
 import { store } from '../../store/index';
-import { AuthorizationStatus, BlockPlaces } from '../../const';
+import { fetchCurrentOfferAction, fetchNearbyOffersAction, fetchOfferReviwsAction, } from '../../store/api-actions';
+import { getCurrentOffer, getCurrentOfferLoadingStatus, getNearbyOffers } from '../../store/offer-process/selectors';
 import { getWidthRating } from '../../utils/utils';
-import { getCurrentOffer, getNearbyOffers } from '../../store/offer-data/selectors';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { BlockPlaces } from '../../const';
 
 function Property(): JSX.Element {
   const { id } = useParams();
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     const hotelId = Number(id);
-    store.dispatch(fetchOfferAction(hotelId));
+    store.dispatch(fetchCurrentOfferAction(hotelId));
     store.dispatch(fetchNearbyOffersAction(hotelId));
+    store.dispatch(fetchOfferReviwsAction(hotelId));
   }, [id]);
 
   const currentOffer = useAppSelector(getCurrentOffer);
   const nearbyOffers = useAppSelector(getNearbyOffers);
+  const isOfferLoading = useAppSelector(getCurrentOfferLoadingStatus);
+
+  if (!currentOffer && isOfferLoading) {
+    return (
+      <Spinner />
+    );
+  }
 
   if (!currentOffer) {
     return (
-      <Spinner />
+      <NotFound />
     );
   }
 
@@ -107,15 +113,11 @@ function Property(): JSX.Element {
                   <p className="property__text">{description}</p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <ListReviews hotelId={hotelId} />
-                {(authorizationStatus === AuthorizationStatus.Auth) && <FormReview hotelId={hotelId} />}
-              </section>
+              <ListReviews hotelId={hotelId} />
             </div>
           </div>
           <Map
             classlist={'property__map map'}
-            city={currentOffer.city}
             offers={[...nearbyOffers, currentOffer]}
             selectedOfferId={currentOffer.id}
           />

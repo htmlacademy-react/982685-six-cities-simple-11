@@ -1,5 +1,5 @@
 import { Offer, Offers } from './../types/offers';
-import { SortTypes } from '../const';
+import { SortType } from '../const';
 
 const sortPriceLowToHigh = (offer1: Offer, offer2: Offer): number =>
   Math.sign(offer1.price - offer2.price);
@@ -10,17 +10,17 @@ const sortPriceHighToLow = (offer1: Offer, offer2: Offer): number =>
 const sortTopRatingFirst = (offer1: Offer, offer2: Offer): number =>
   Math.sign(offer2.rating - offer1.rating);
 
-const sortOffers = (offers: Offers, type: SortTypes): Offers => {
+const sortOffers = (offers: Offers, type: SortType): Offers => {
   const sortedOffers = [...offers]; // Copy objects for mutatition
 
   switch (type) {
-    case SortTypes.PriceToHigh:
+    case SortType.PriceToHigh:
       return sortedOffers.sort(sortPriceLowToHigh);
-    case SortTypes.PriceToLow:
+    case SortType.PriceToLow:
       return sortedOffers.sort(sortPriceHighToLow);
-    case SortTypes.TopRated:
+    case SortType.TopRated:
       return sortedOffers.sort(sortTopRatingFirst);
-    case SortTypes.Popular:
+    case SortType.Popular:
     default:
       return offers;
   }

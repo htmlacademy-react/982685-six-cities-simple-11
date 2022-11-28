@@ -76,9 +76,9 @@ export enum APIRoute {
 }
 
 export enum NameSpace {
-  Data = 'DATA',
+  App = 'APP',
   Offer = 'OFFER',
-  Comment = 'COMMENT',
+  Review = 'REVIEW',
   User = 'USER',
 }
 
@@ -95,7 +95,7 @@ export enum HousingType {
   Hotel = 'Hotel',
 }
 
-export enum SortTypes {
+export enum SortType {
   Popular = 'Popular',
   PriceToHigh = 'Price: low to high',
   PriceToLow = 'Price: high to low',

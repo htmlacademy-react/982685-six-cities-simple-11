@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import OfferCard from '../offer-card/offer-card';
 import { Offer, Offers } from '../../types/offers';
 import { BlockPlaces } from '../../const';
 import { store } from '../../store';
-import { setSelectedOfferId } from '../../store/offer-process/offer-process';
+import { setSelectedOfferId } from '../../store/app-process/app-process';
 
 type ListOffersProps = {
   block: string;
@@ -40,4 +40,4 @@ function ListOffers({ block, offers }: ListOffersProps): JSX.Element {
   );
 }
 
-export default ListOffers;
+export default memo(ListOffers);

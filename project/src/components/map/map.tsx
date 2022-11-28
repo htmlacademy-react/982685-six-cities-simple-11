@@ -1,7 +1,9 @@
 import { useRef, useEffect } from 'react';
 import { Icon, LayerGroup, Marker } from 'leaflet';
 import useMap from '../../hooks/useMap';
-import { City, Offers } from '../../types/offers';
+import { useAppSelector } from '../../hooks';
+import { getCity } from '../../store/app-process/selectors';
+import { Offers } from '../../types/offers';
 import { Leaflet } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
@@ -19,12 +21,12 @@ const activeCustomIcon = new Icon({
 
 type MapProps = {
   classlist: string;
-  city: City;
   offers: Offers;
   selectedOfferId?: number;
 };
 
-function Map({ classlist, city, offers, selectedOfferId = undefined }: MapProps): JSX.Element {
+function Map({ classlist, offers, selectedOfferId = undefined }: MapProps): JSX.Element {
+  const city = useAppSelector(getCity);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 

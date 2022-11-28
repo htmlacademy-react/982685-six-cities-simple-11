@@ -1,29 +1,24 @@
 import Review from '../review/review';
+import FormReview from '../form-review/form-review';
 import { useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
-import { store } from '../../store/index';
-import { fetchOfferReviwsAction } from '../../store/api-actions';
-import { getCurrentOfferReviews } from '../../store/comment-process/selectors';
-import sortReviews from '../../utils/sort-reviews';
+import { getSortedReviews } from '../../store/review-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { AuthorizationStatus } from '../../const';
 
 type ReviewsProps = {
   hotelId: number;
 };
 
 function ListReviews({ hotelId }: ReviewsProps): JSX.Element {
-  const reviews = useAppSelector(getCurrentOfferReviews);
-
-  useEffect(() => {
-    store.dispatch(fetchOfferReviwsAction(hotelId));
-  }, [hotelId, reviews]);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   // Отзывы должны быть отсортированы от новых к старым (новые сверху).
   // На страницу выводится не больше 10 отзывов.
   // Количество отзывов в заголовке должно соответствовать количеству отображаемых отзывов.
-  const sortedReviews = sortReviews(reviews).slice(0, 10);
+  const sortedReviews = useAppSelector(getSortedReviews).slice(0, 10);
 
   return (
-    <>
+    <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{sortedReviews.length}</span></h2>
       <ul className="reviews__list">
         {sortedReviews.map((review) => (
@@ -32,7 +27,9 @@ function ListReviews({ hotelId }: ReviewsProps): JSX.Element {
           </li>
         ))}
       </ul>
-    </>
+      {(authorizationStatus === AuthorizationStatus.Auth) &&
+      <FormReview hotelId={hotelId} />}
+    </section>
   );
 }
 

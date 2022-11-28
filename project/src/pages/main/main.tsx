@@ -1,24 +1,20 @@
 import { Helmet } from 'react-helmet-async';
-import { useAppSelector } from '../../hooks';
 import ListCities from '../../components/list-cities/list-cities';
 import ListOffers from '../../components/list-offers/list-offers';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import Map from '../../components/map/map';
 import MainEmpty from '../../components/main-empty/main-empty';
+import { useAppSelector } from '../../hooks';
+import { getCity, getsetSelectedOfferId} from '../../store/app-process/selectors';
+import { getSortedOffers } from '../../store/offer-process/selectors';
 import { BlockPlaces } from '../../const';
-import { getOffersByCity } from '../../utils/utils';
-import { getOffers } from '../../store/offer-data/selectors';
-import { getCity, getsetSelectedOfferId, getSortOptionOffers} from '../../store/offer-process/selectors';
-import sortOffers from '../../utils/sort-offers';
 
 function Main(): JSX.Element {
   const currentCity = useAppSelector(getCity);
-  const allOffers = useAppSelector(getOffers);
-  const sortOptionOffers = useAppSelector(getSortOptionOffers);
+  const sortedOffers = useAppSelector(getSortedOffers);
   const selectedOfferId = useAppSelector(getsetSelectedOfferId);
 
-  const cityOffers = getOffersByCity(allOffers, currentCity);
-  const numberOffers = cityOffers.length;
+  const numberOffers = sortedOffers.length;
   const isOffers = (numberOffers > 0);
 
   return (
@@ -31,7 +27,7 @@ function Main(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ListCities currentCity={currentCity} />
+            <ListCities />
           </section>
         </div>
         <div className="cities">
@@ -41,14 +37,14 @@ function Main(): JSX.Element {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{numberOffers} places to stay in {currentCity.name}</b>
                 <SortingOptions />
-                <ListOffers block={BlockPlaces.Cities} offers={sortOffers(cityOffers, sortOptionOffers)} />
+                <ListOffers block={BlockPlaces.Cities} offers={sortedOffers} />
               </section>
               <div className="cities__right-section">
-                <Map classlist={'cities__map map'} city={currentCity} offers={cityOffers} selectedOfferId={selectedOfferId}/>
+                <Map classlist={'cities__map map'} offers={sortedOffers} selectedOfferId={selectedOfferId}/>
               </div>
             </div>
           ) :
-            <MainEmpty cityName={currentCity.name} />}
+            <MainEmpty />}
         </div>
       </main>
     </div>

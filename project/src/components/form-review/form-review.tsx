@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react';
 import { NewReview } from '../../types/offers';
 import { Rating, Ratings, Review } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { fetchSendCommentAction } from '../../store/api-actions';
+import { fetchSendReviewAction } from '../../store/api-actions';
 
 type FormReviewProps = {
   hotelId: number;
@@ -19,7 +19,7 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
 
   const handleSubmit = async () => {
     setSendReview(true);
-    await dispatch(fetchSendCommentAction({ id: hotelId, comment: review.comment, rating: review.rating }));
+    await dispatch(fetchSendReviewAction({ id: hotelId, comment: review.comment, rating: review.rating }));
     setSendReview(false);
     setReview({ comment: '', rating: Rating.Undefined });
   };

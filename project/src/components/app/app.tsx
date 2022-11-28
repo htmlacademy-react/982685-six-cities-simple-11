@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
 import { getAuthCheckedStatus } from '../../store/user-process/selectors';
-import { getDataLoadingStatus, getErrorStatus } from '../../store/offer-data/selectors';
+import { getErrorStatus, getOffersLoadingStatus } from '../../store/offer-process/selectors';
 import { AppRoute } from '../../const';
 import Layout from '../layout/layout';
 import Main from '../../pages/main/main';
@@ -17,7 +17,7 @@ import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
-  const isOffersDataLoading = useAppSelector(getDataLoadingStatus);
+  const isOffersLoading = useAppSelector(getOffersLoadingStatus);
   const hasError = useAppSelector(getErrorStatus);
 
   if (hasError) {
@@ -25,7 +25,7 @@ function App(): JSX.Element {
       <LoadError />);
   }
 
-  if (!isAuthChecked || isOffersDataLoading) {
+  if (!isAuthChecked || isOffersLoading) {
     return (
       <Spinner />
     );
@@ -39,7 +39,6 @@ function App(): JSX.Element {
           <Route path={AppRoute.Root} element={<Layout />}>
             <Route index element={<Main />} />
             <Route path={`${AppRoute.Offer}/:id`} element={<Property />} />
-            <Route path="*" element={<NotFound />} />
           </Route>
           <Route path={AppRoute.Login} element={<Login />} />
           <Route path="*" element={<NotFound />} />

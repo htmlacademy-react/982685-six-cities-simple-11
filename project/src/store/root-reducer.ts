@@ -1,13 +1,13 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { NameSpace } from '../const';
-import { offerData } from './offer-data/offer-data';
+import { appProcess } from './app-process/app-process';
 import { offerProcess } from './offer-process/offer-process';
-import { commentProcess } from './comment-process/comment-process';
+import { reviewProcess } from './review-process/review-process';
 import { userProcess } from './user-process/user-process';
 
 export const rootReducer = combineReducers({
-  [NameSpace.Data]: offerData.reducer,
+  [NameSpace.App]: appProcess.reducer,
   [NameSpace.Offer]: offerProcess.reducer,
-  [NameSpace.Comment]: commentProcess.reducer,
+  [NameSpace.Review]: reviewProcess.reducer,
   [NameSpace.User]: userProcess.reducer,
 });

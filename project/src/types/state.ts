@@ -1,23 +1,24 @@
 import { store } from '../store';
 import { City, Offer, Offers, ReviewsType } from '../types/offers';
-import { AuthorizationStatus, SortTypes } from '../const';
+import { AuthorizationStatus, SortType } from '../const';
 import { UserData } from './user';
 
-export type OfferProcess = {
+export type AppProcess = {
   city: City;
-  sortOptionOffers: SortTypes;
+  sortOptionOffers: SortType;
   selectedOfferId: number | undefined;
 }
 
-export type OfferData = {
+export type OfferProcess = {
   offers: Offers;
-  currentOffer: Offer | undefined;
-  nearbyOffers: Offers;
-  isDataLoading: boolean;
+  isOffersLoading: boolean;
   hasError: boolean;
+  currentOffer: Offer | undefined;
+  isCurrentOfferLoading: boolean;
+  nearbyOffers: Offers;
 }
 
-export type CommentProcess = {
+export type ReviewProcess = {
   currentOfferReviews: ReviewsType;
 };
 

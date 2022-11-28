@@ -1,8 +1,8 @@
-import { MouseEventHandler, useState } from 'react';
+import { memo, MouseEventHandler, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { SortTypes } from '../../const';
-import { getSortOptionOffers } from '../../store/offer-process/selectors';
-import { setSortOptionOffers } from '../../store/offer-process/offer-process';
+import { SortType } from '../../const';
+import { setSortOptionOffers } from '../../store/app-process/app-process';
+import { getSortOptionOffers } from '../../store/app-process/selectors';
 
 function SortingOptions(): JSX.Element {
   const [isOpenedSelect, setStateSelect] = useState(false);
@@ -10,7 +10,7 @@ function SortingOptions(): JSX.Element {
   const activeSort = useAppSelector(getSortOptionOffers);
   const dispatch = useAppDispatch();
 
-  const changeSortOption = (selectedOption: SortTypes) => {
+  const changeSortOption = (selectedOption: SortType) => {
     if (selectedOption !== activeSort) {
       dispatch(setSortOptionOffers({sortOptionOffers: selectedOption}));
     }
@@ -33,7 +33,7 @@ function SortingOptions(): JSX.Element {
         </svg>
       </span>
       <ul className={`places__options places__options--custom places__options--${isOpenedSelect ? 'opened' : 'closed'}`}>
-        {Object.values(SortTypes).map((sortOption) => (
+        {Object.values(SortType).map((sortOption) => (
           <li className={`places__option${activeSort === sortOption ? ' places__option--active' : ''}`}
             tabIndex={0}
             onClick={() => (changeSortOption(sortOption))}
@@ -47,4 +47,4 @@ function SortingOptions(): JSX.Element {
   );
 }
 
-export default SortingOptions;
+export default memo(SortingOptions);

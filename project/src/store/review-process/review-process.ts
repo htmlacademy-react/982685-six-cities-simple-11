@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchOfferReviwsAction } from '../api-actions';
-import { CommentProcess } from '../../types/state';
+import { ReviewProcess } from '../../types/state';
 import { NameSpace } from '../../const';
 
-const initialState: CommentProcess = {
+const initialState: ReviewProcess = {
   currentOfferReviews: [],
 };
 
-export const commentProcess = createSlice({
-  name: NameSpace.Comment,
+export const reviewProcess = createSlice({
+  name: NameSpace.Review,
   initialState,
   reducers: {},
   extraReducers(builder) {
