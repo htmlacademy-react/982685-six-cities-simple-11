@@ -1,4 +1,5 @@
-import { Rating } from '../const';
+import { CitiesList, Rating } from '../const';
+import { City } from '../types/offers';
 
 /**
  * Calculates the width of block 'rating__star'
@@ -27,3 +28,9 @@ export const isValidPassword = (password: string): boolean => {
   const re = new RegExp(/([0-9].*[a-z])|([a-z].*[0-9])/, 'i');
   return re.test(password);
 };
+
+/**
+ * Returns a random city from the list
+ * @returns City
+ */
+export const getRandomCity = (): City => CitiesList[Math.abs(Math.ceil(Math.random() * CitiesList.length - 1))];
