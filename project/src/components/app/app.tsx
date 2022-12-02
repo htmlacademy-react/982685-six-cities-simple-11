@@ -20,15 +20,15 @@ function App(): JSX.Element {
   const isOffersLoading = useAppSelector(getOffersLoadingStatus);
   const hasError = useAppSelector(getErrorStatus);
 
-  if (hasError) {
-    return (
-      <LoadError />);
-  }
-
   if (!isAuthChecked || isOffersLoading) {
     return (
       <Spinner />
     );
+  }
+
+  if (hasError) {
+    return (
+      <LoadError />);
   }
 
   return (

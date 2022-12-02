@@ -68,6 +68,7 @@ function Login(): JSX.Element {
                   type="email"
                   name="email"
                   placeholder="Email"
+                  data-testid="login"
                   required
                 />
               </div>
@@ -79,6 +80,7 @@ function Login(): JSX.Element {
                   type="password"
                   name="password"
                   placeholder="Password"
+                  data-testid="password"
                   required
                 />
               </div>

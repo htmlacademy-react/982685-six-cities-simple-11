@@ -5,14 +5,14 @@ import SortingOptions from '../../components/sorting-options/sorting-options';
 import Map from '../../components/map/map';
 import MainEmpty from '../../components/main-empty/main-empty';
 import { useAppSelector } from '../../hooks';
-import { getCity, getsetSelectedOfferId} from '../../store/app-process/selectors';
+import { getCity, getSelectedOfferId} from '../../store/app-process/selectors';
 import { getSortedOffers } from '../../store/offer-process/selectors';
 import { BlockPlaces } from '../../const';
 
 function Main(): JSX.Element {
   const currentCity = useAppSelector(getCity);
   const sortedOffers = useAppSelector(getSortedOffers);
-  const selectedOfferId = useAppSelector(getsetSelectedOfferId);
+  const selectedOfferId = useAppSelector(getSelectedOfferId);
 
   const numberOffers = sortedOffers.length;
   const isOffers = (numberOffers > 0);

@@ -27,7 +27,10 @@ function OfferCard({ block, offer, onOfferCardHover }: OfferCardProps): JSX.Elem
           <span>Premium</span>
         </div>}
       <div className={`${block}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`${AppRoute.Offer}/${id}`}>
+        <Link
+          to={`${AppRoute.Offer}/${id}`}
+          data-testid="link-card__image"
+        >
           <img className="place-card__image" src={previewImage} alt={title} width="260" height="200" />
         </Link>
       </div>
@@ -45,7 +48,12 @@ function OfferCard({ block, offer, onOfferCardHover }: OfferCardProps): JSX.Elem
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
+          <Link
+            to={`${AppRoute.Offer}/${id}`}
+            data-testid="link-card__title"
+          >
+            {title}
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

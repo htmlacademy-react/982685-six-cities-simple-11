@@ -1,4 +1,4 @@
-import { name, date, internet, address, random, lorem } from 'faker';
+import { name, date, internet, address, lorem, datatype } from 'faker';
 import { City, Offer, Offers, ReviewType, ReviewsType } from '../types/offers';
 import { UserData } from './../types/user';
 import { HousingType, Rating, Review } from '../const';
@@ -25,12 +25,12 @@ export const mockOffer = (): Offer => ({
     internet.url(),
   ],
   title: lorem.lines(1),
-  isPremium: random.boolean(),
-  rating: random.number(Rating.MaxStars),
+  isPremium: datatype.boolean(),
+  rating: datatype.number(Rating.MaxStars),
   type: HousingType.Room,
-  bedrooms: random.number(4),
-  maxAdults: random.number(4),
-  price: random.number(2000),
+  bedrooms: datatype.number(4),
+  maxAdults: datatype.number(4),
+  price: datatype.number(2000),
   goods: [
     'Towels',
     'Breakfast',
@@ -40,9 +40,9 @@ export const mockOffer = (): Offer => ({
     'Baby seat',
   ],
   host: {
-    id: random.number(100),
+    id: datatype.number(100),
     name: name.firstName(),
-    isPro: random.boolean(),
+    isPro: datatype.boolean(),
     avatarUrl: internet.url(),
   },
   description: lorem.lines(1),
@@ -51,13 +51,13 @@ export const mockOffer = (): Offer => ({
     longitude: Number(address.longitude()),
     zoom: 13,
   },
-  id: random.number(100),
+  id: datatype.number(100),
 });
 
 export const mockOffers = () => {
   const offers: Offers = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 3; i++) {
     offers.push(mockOffer());
   }
 
@@ -65,14 +65,14 @@ export const mockOffers = () => {
 };
 
 export const mockReview = (): ReviewType => ({
-  id: random.number(100),
+  id: datatype.number(100),
   comment: lorem.word(Review.MaxLength),
   date: date.recent().toISOString(),
-  rating: random.number(Rating.MaxStars),
+  rating: datatype.number(Rating.MaxStars),
   user: {
-    id: random.number(100),
+    id: datatype.number(100),
     name: name.firstName(),
-    isPro: random.boolean(),
+    isPro: datatype.boolean(),
     avatarUrl: internet.url(),
   }
 });
@@ -87,9 +87,8 @@ export const mockReviews = (): ReviewsType => {
   return reviews;
 };
 
-
 export const mockUser = (): UserData => ({
-  id: random.number(100),
+  id: datatype.number(100),
   email: internet.email(),
   token: internet.password(),
 });

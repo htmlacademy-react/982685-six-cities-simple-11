@@ -1,4 +1,5 @@
-import { Fragment, useState } from 'react';
+import { FormEvent, Fragment, useCallback, useState } from 'react';
+import { toast } from 'react-toastify';
 import { NewReview } from '../../types/offers';
 import { Rating, Ratings, Review } from '../../const';
 import { useAppDispatch } from '../../hooks';
@@ -7,6 +8,7 @@ import { fetchSendReviewAction } from '../../store/api-actions';
 type FormReviewProps = {
   hotelId: number;
 }
+
 function FormReview({ hotelId }: FormReviewProps): JSX.Element {
   const [review, setReview] = useState<NewReview>({
     comment: '',
@@ -17,22 +19,28 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback((evt: FormEvent<HTMLFormElement>): void => {
+    evt.preventDefault();
+
     setSendReview(true);
-    await dispatch(fetchSendReviewAction({ id: hotelId, comment: review.comment, rating: review.rating }));
-    setSendReview(false);
-    setReview({ comment: '', rating: Rating.Undefined });
-  };
+    dispatch(fetchSendReviewAction({ id: hotelId, comment: review.comment, rating: review.rating }))
+      .then(() => {
+        setReview({ comment: '', rating: Rating.Undefined });
+      })
+      .catch(() => {
+        toast.error('Error in submitting a review');
+      })
+      .finally(() => {
+        setSendReview(false);
+      });
+  }, [hotelId, review, dispatch]);
 
   return (
     <form
       className="reviews__form form"
       method="post"
       action=""
-      onSubmit={(evt) => {
-        evt.preventDefault();
-        handleSubmit();
-      }}
+      onSubmit={handleSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
@@ -55,7 +63,7 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
                   htmlFor={id}
                   title={title}
                 >
-                  <svg className="form__star-image" width="37" height="33">
+                  <svg className="form__star-image" width="37" height="33" data-testid="star-rating">
                     <use xlinkHref="#icon-star"></use>
                   </svg>
                 </label>
