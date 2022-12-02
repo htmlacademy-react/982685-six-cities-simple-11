@@ -35,12 +35,12 @@ describe('Reducer: offer-process', () => {
   it('should update state by load offers', () => {
     state = {...state, isOffersLoading: true};
     expect(offerProcess.reducer(state, {type: fetchOffersAction.fulfilled.type, payload: offers}))
-      .toEqual({...state, offers: offers, isOfferProcessLoading: false, hasError: false});
+      .toEqual({...state, offers: offers, isOffersLoading: false, hasError: false});
   });
 
   it('should set hasError flag if server is unavailable', () => {
     expect(offerProcess.reducer(state, {type: fetchOffersAction.rejected.type, payload: offers}))
-      .toEqual({...state, isOfferProcessLoading: false, hasError: true});
+      .toEqual({...state, isOffersLoading: false, hasError: true});
   });
 
   it('should set current offer by load offer', () => {
