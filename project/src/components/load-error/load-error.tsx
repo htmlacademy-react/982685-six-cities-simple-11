@@ -1,4 +1,3 @@
-
 import { useAppDispatch } from '../../hooks';
 import { fetchOffersAction } from '../../store/api-actions';
 

@@ -3,7 +3,7 @@ import { mockOffer } from '../../utils/mocks';
 import HistoryRouter from '../history-route/history-route';
 import { createMemoryHistory } from 'history';
 import OfferCard from './offer-card';
-import { BlockPlaces } from '../../const';
+import { BlockPlace } from '../../const';
 import { Route, Routes } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
@@ -15,7 +15,7 @@ describe('Component: PlaceCard', () => {
   it('should render correctly', () => {
     render(
       <HistoryRouter history={history}>
-        <OfferCard block={BlockPlaces.Cities} offer={offer} onOfferCardHover={onOfferCardHover} />
+        <OfferCard block={BlockPlace.Cities} offer={offer} onOfferCardHover={onOfferCardHover} />
       </HistoryRouter>
     );
 
@@ -38,7 +38,7 @@ describe('Component: PlaceCard', () => {
           <Routes>
             <Route path={`/offer/${id}`} element={<h1>This is Property page</h1>} />
             <Route path='*' element={
-              <OfferCard block={BlockPlaces.Cities} offer={offer} onOfferCardHover={onOfferCardHover} />
+              <OfferCard block={BlockPlace.Cities} offer={offer} onOfferCardHover={onOfferCardHover} />
             }
             />
           </Routes>
@@ -58,7 +58,7 @@ describe('Component: PlaceCard', () => {
           <Routes>
             <Route path={`/offer/${id}`} element={<h1>This is Property page</h1>} />
             <Route path='*' element={
-              <OfferCard block={BlockPlaces.Cities} offer={offer} onOfferCardHover={onOfferCardHover} />
+              <OfferCard block={BlockPlace.Cities} offer={offer} onOfferCardHover={onOfferCardHover} />
             }
             />
           </Routes>

@@ -38,7 +38,9 @@ function App(): JSX.Element {
         <Routes>
           <Route path={AppRoute.Root} element={<Layout />}>
             <Route index element={<Main />} />
-            <Route path={`${AppRoute.Offer}/:id`} element={<Property />} />
+            <Route path={AppRoute.Offer}>
+              <Route path={AppRoute.Room} element={<Property />} />
+            </Route>
           </Route>
           <Route path={AppRoute.Login} element={<Login />} />
           <Route path="*" element={<NotFound />} />

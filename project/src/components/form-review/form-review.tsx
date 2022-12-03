@@ -1,7 +1,7 @@
-import { FormEvent, Fragment, useCallback, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
 import { NewReview } from '../../types/offers';
-import { Rating, Ratings, Review } from '../../const';
+import { Rating, RatingsList, Review } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { fetchSendReviewAction } from '../../store/api-actions';
 
@@ -16,6 +16,14 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
   });
 
   const [isSendReview, setSendReview] = useState<boolean>(false);
+
+  const handleRatingChange = useCallback((evt: ChangeEvent<HTMLInputElement>): void => (
+    setReview({ ...review, rating: +evt.target.value })
+  ), [review]);
+
+  const handleReviewChange = useCallback((evt: ChangeEvent<HTMLTextAreaElement>): void => (
+    setReview({ ...review, comment: evt.target.value })
+  ), [review]);
 
   const dispatch = useAppDispatch();
 
@@ -45,7 +53,7 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
-          Ratings.map(({ value, title }) => {
+          RatingsList.map(({ value, title }) => {
             const id = `${value}-stars`;
             return (
               <Fragment key={id}>
@@ -55,7 +63,7 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
                   name="rating"
                   id={id}
                   value={value}
-                  onChange={(evt) => setReview({...review, rating: +evt.target.value})}
+                  onChange={handleRatingChange}
                   checked={review.rating === value}
                 />
                 <label
@@ -78,7 +86,7 @@ function FormReview({ hotelId }: FormReviewProps): JSX.Element {
         id="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={review.comment}
-        onChange={(evt) => setReview({...review, comment: evt.target.value})}
+        onChange={handleReviewChange}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

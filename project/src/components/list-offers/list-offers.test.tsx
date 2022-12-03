@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
 import HistoryRouter from '../history-route/history-route';
-import { BlockPlaces, NameSpace } from '../../const';
+import { BlockPlace, NameSpace } from '../../const';
 import { mockOffers } from '../../utils/mocks';
 import ListOffers from './list-offers';
 
@@ -22,7 +22,7 @@ describe('Component: ListOffers', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <ListOffers block={BlockPlaces.Cities} offers={offers} />
+          <ListOffers block={BlockPlace.Cities} offers={offers} />
         </HistoryRouter>
       </Provider>
     );

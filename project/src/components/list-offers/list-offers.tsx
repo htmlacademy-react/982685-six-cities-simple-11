@@ -1,7 +1,7 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import OfferCard from '../offer-card/offer-card';
 import { Offer, Offers } from '../../types/offers';
-import { BlockPlaces } from '../../const';
+import { BlockPlace } from '../../const';
 import { store } from '../../store';
 import { setSelectedOfferId } from '../../store/app-process/app-process';
 
@@ -22,7 +22,7 @@ function ListOffers({ block, offers }: ListOffersProps): JSX.Element {
     };
   }, [selectedOffer]);
 
-  const classList = (block === BlockPlaces.Cities) ?
+  const classList = (block === BlockPlace.Cities) ?
     'cities__places-list places__list tabs__content' :
     'near-places__list places__list';
 

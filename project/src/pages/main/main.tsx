@@ -7,7 +7,7 @@ import MainEmpty from '../../components/main-empty/main-empty';
 import { useAppSelector } from '../../hooks';
 import { getCity, getSelectedOfferId} from '../../store/app-process/selectors';
 import { getSortedOffers } from '../../store/offer-process/selectors';
-import { BlockPlaces } from '../../const';
+import { BlockPlace } from '../../const';
 
 function Main(): JSX.Element {
   const currentCity = useAppSelector(getCity);
@@ -37,7 +37,7 @@ function Main(): JSX.Element {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{numberOffers} places to stay in {currentCity.name}</b>
                 <SortingOptions />
-                <ListOffers block={BlockPlaces.Cities} offers={sortedOffers} />
+                <ListOffers block={BlockPlace.Cities} offers={sortedOffers} />
               </section>
               <div className="cities__right-section">
                 <Map classlist={'cities__map map'} offers={sortedOffers} selectedOfferId={selectedOfferId}/>
