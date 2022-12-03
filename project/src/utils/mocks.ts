@@ -1,7 +1,7 @@
 import { name, date, internet, address, lorem, datatype } from 'faker';
 import { City, Offer, Offers, ReviewType, ReviewsType } from '../types/offers';
 import { UserData } from './../types/user';
-import { HousingType, Rating, Review } from '../const';
+import { InitialCity, HousingType, Rating, Review } from '../const';
 import { getRandomCity } from './utils';
 
 export const mockCity = (): City => ({
@@ -14,7 +14,7 @@ export const mockCity = (): City => ({
 });
 
 export const mockOffer = (): Offer => ({
-  city: getRandomCity(),
+  city: InitialCity,
   previewImage: internet.url(),
   images: [
     internet.url(),
@@ -40,7 +40,7 @@ export const mockOffer = (): Offer => ({
     'Baby seat',
   ],
   host: {
-    id: datatype.number(100),
+    id: datatype.number(10),
     name: name.firstName(),
     isPro: datatype.boolean(),
     avatarUrl: internet.url(),
