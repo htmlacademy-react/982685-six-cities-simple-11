@@ -11,7 +11,7 @@ import { store } from '../../store/index';
 import { fetchCurrentOfferAction, fetchNearbyOffersAction, fetchOfferReviwsAction, } from '../../store/api-actions';
 import { getCurrentOffer, getCurrentOfferLoadingStatus, getNearbyOffers } from '../../store/offer-process/selectors';
 import { getWidthRating } from '../../utils/utils';
-import { BlockPlaces } from '../../const';
+import { BlockPlace } from '../../const';
 
 function Property(): JSX.Element {
   const { id } = useParams();
@@ -125,7 +125,7 @@ function Property(): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <ListOffers block={BlockPlaces.NearPlaces} offers={nearbyOffers} />
+            <ListOffers block={BlockPlace.NearPlaces} offers={nearbyOffers} />
           </section>
         </div>
       </main>

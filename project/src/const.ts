@@ -66,6 +66,7 @@ export enum AppRoute {
   Root = '/',
   Login = '/login',
   Offer = '/offer',
+  Room = ':id',
 }
 
 export enum APIRoute {
@@ -103,7 +104,7 @@ export enum SortType {
 }
 
 // Names block for offers cards
-export const BlockPlaces = {
+export const BlockPlace = {
   Cities: 'cities',
   NearPlaces: 'near-places',
 } as const;
@@ -115,7 +116,7 @@ export const Rating = {
   MaxStars: 5,
 } as const;
 
-export const Ratings: { value: number; title: string }[] = [
+export const RatingsList: { value: number; title: string }[] = [
   {
     value: 5,
     title: 'perfect',

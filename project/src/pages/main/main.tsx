@@ -5,14 +5,14 @@ import SortingOptions from '../../components/sorting-options/sorting-options';
 import Map from '../../components/map/map';
 import MainEmpty from '../../components/main-empty/main-empty';
 import { useAppSelector } from '../../hooks';
-import { getCity, getsetSelectedOfferId} from '../../store/app-process/selectors';
+import { getCity, getSelectedOfferId} from '../../store/app-process/selectors';
 import { getSortedOffers } from '../../store/offer-process/selectors';
-import { BlockPlaces } from '../../const';
+import { BlockPlace } from '../../const';
 
 function Main(): JSX.Element {
   const currentCity = useAppSelector(getCity);
   const sortedOffers = useAppSelector(getSortedOffers);
-  const selectedOfferId = useAppSelector(getsetSelectedOfferId);
+  const selectedOfferId = useAppSelector(getSelectedOfferId);
 
   const numberOffers = sortedOffers.length;
   const isOffers = (numberOffers > 0);
@@ -37,7 +37,7 @@ function Main(): JSX.Element {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{numberOffers} places to stay in {currentCity.name}</b>
                 <SortingOptions />
-                <ListOffers block={BlockPlaces.Cities} offers={sortedOffers} />
+                <ListOffers block={BlockPlace.Cities} offers={sortedOffers} />
               </section>
               <div className="cities__right-section">
                 <Map classlist={'cities__map map'} offers={sortedOffers} selectedOfferId={selectedOfferId}/>
