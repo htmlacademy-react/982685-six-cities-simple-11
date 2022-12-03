@@ -52,7 +52,7 @@ function Map({ classlist, offers, selectedOfferId = undefined }: MapProps): JSX.
 
   return (
     <section className={classlist}>
-      <div style={{ height: '100%' }} ref={mapRef} />
+      <div style={{ height: '100%' }} ref={mapRef} data-testid="leaflet-map" />
     </section>
   );
 }
