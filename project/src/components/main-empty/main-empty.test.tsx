@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { InitialCity, NameSpace } from '../../const';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import MainEmpty from './main-empty';
 
 const mockStore = configureMockStore();

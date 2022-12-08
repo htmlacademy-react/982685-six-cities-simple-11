@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import ScrollToTop from './components/scroll-to-top/scroll-to-top';
 import App from './components/app/app';
 import { store } from './store';
-import HistoryRouter from './components/history-route/history-route';
+import HistoryRouter from './components/history-router/history-router';
 import browserHistory from './browser-history';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 import 'react-toastify/dist/ReactToastify.css';

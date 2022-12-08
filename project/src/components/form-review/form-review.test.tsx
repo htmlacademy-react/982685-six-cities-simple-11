@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
 import { createMemoryHistory } from 'history';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import FormReview from './form-review';
 import { NameSpace, Rating } from '../../const';
 

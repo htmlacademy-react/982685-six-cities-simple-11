@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { HelmetProvider } from 'react-helmet-async';
 import userEvent from '@testing-library/user-event';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRouter from '../../components/history-router/history-router';
 import { createMemoryHistory } from 'history';
 import { Route, Routes } from 'react-router-dom';
 import NotFound from './not-found';
