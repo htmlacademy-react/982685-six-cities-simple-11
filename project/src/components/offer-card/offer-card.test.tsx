@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { mockOffer } from '../../utils/mocks';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import { createMemoryHistory } from 'history';
 import OfferCard from './offer-card';
 import { BlockPlace } from '../../const';

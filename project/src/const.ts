@@ -62,6 +62,9 @@ export const CitiesList: Cities = [
 
 export const InitialCity = CitiesList[0];
 
+export const MAX_QTY_IMAGES = 6;
+export const MAX_QTY_REVIEWS = 10;
+
 export enum AppRoute {
   Root = '/',
   Login = '/login',

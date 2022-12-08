@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
 import { createMemoryHistory } from 'history';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRouter from '../../components/history-router/history-router';
 import { AuthorizationStatus, NameSpace } from '../../const';
 import { mockCity, mockOffer, mockOffers, mockReviews } from '../../utils/mocks';
 import Property from './property';

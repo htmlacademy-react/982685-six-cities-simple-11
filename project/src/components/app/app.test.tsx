@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
 import { createMemoryHistory } from 'history';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import { AuthorizationStatus, AppRoute, NameSpace, CityName, SortType, InitialCity } from '../../const';
 import { mockReviews, mockOffers } from '../../utils/mocks';
 import App from './app';

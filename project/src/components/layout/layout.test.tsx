@@ -2,7 +2,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { createMemoryHistory } from 'history';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import { AuthorizationStatus, NameSpace } from '../../const';
 import { mockUser } from '../../utils/mocks';
 import Layout from './layout';

@@ -11,7 +11,7 @@ import { store } from '../../store/index';
 import { fetchCurrentOfferAction, fetchNearbyOffersAction, fetchOfferReviwsAction, } from '../../store/api-actions';
 import { getCurrentOffer, getCurrentOfferLoadingStatus, getNearbyOffers } from '../../store/offer-process/selectors';
 import { getWidthRating } from '../../utils/utils';
-import { BlockPlace } from '../../const';
+import { BlockPlace, MAX_QTY_IMAGES } from '../../const';
 
 function Property(): JSX.Element {
   const { id } = useParams();
@@ -52,7 +52,7 @@ function Property(): JSX.Element {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                images.map((image, idx) => (
+                images.slice(0, MAX_QTY_IMAGES).map((image, idx) => (
                   <div className="property__image-wrapper" key={image}>
                     <img className="property__image" src={image} alt={(idx).toString()} />
                   </div>
