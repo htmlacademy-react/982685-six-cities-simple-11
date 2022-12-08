@@ -3,7 +3,7 @@ import FormReview from '../form-review/form-review';
 import { useAppSelector } from '../../hooks';
 import { getSortedReviews } from '../../store/review-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, MAX_QTY_REVIEWS } from '../../const';
 
 type ReviewsProps = {
   hotelId: number;
@@ -15,7 +15,7 @@ function ListReviews({ hotelId }: ReviewsProps): JSX.Element {
   // Отзывы должны быть отсортированы от новых к старым (новые сверху).
   // На страницу выводится не больше 10 отзывов.
   // Количество отзывов в заголовке должно соответствовать количеству отображаемых отзывов.
-  const sortedReviews = useAppSelector(getSortedReviews).slice(0, 10);
+  const sortedReviews = useAppSelector(getSortedReviews).slice(0, MAX_QTY_REVIEWS);
 
   return (
     <section className="property__reviews reviews">
